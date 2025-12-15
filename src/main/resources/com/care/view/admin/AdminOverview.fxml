@@ -64,7 +64,6 @@
                     <padding>
                         <Insets top="30" right="20" bottom="30" left="20"/>
                     </padding>
-                    <Text text="📊" style="-fx-font-size: 36px;"/>
                     <Text text="No recent activity" 
                           style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
                 </VBox>
@@ -74,12 +73,14 @@
     
     <!-- Quick Actions -->
     <HBox spacing="12">
-        <Button text="🔄 Refresh Stats" 
+        <Button text="Refresh Stats" 
                 onAction="#handleRefresh"
-                styleClass="primary-button"/>
-        <Button text="📊 Full Report" 
+                styleClass="primary-button"
+                style="-fx-font-weight: bold;"/>
+        <Button text="Full Report" 
                 onAction="#handleFullReport"
-                styleClass="secondary-button"/>
+                styleClass="secondary-button"
+                style="-fx-font-weight: bold;"/>
     </HBox>
     
 </VBox>

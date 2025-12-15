@@ -62,7 +62,6 @@
               styleClass="upload-zone"
               onMouseClicked="#handleSelectFile"
               prefHeight="100">
-            <Text text="📄" style="-fx-font-size: 32px;"/>
             <Label text="Click to select PDF manual" styleClass="upload-zone-label"/>
             <Label text="Supported format: PDF files only" styleClass="upload-zone-sublabel"/>
         </VBox>
@@ -75,9 +74,9 @@
               styleClass="file-chip">
             <Label fx:id="selectedFileLabel" text="No file selected"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="✖" 
+            <Button text="Clear" 
                     onAction="#handleClearFile"
-                    style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-cursor: hand;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-cursor: hand; -fx-font-weight: bold;"/>
         </HBox>
     </VBox>
     
@@ -90,12 +89,12 @@
     <!-- Action Buttons -->
     <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
         <Button fx:id="saveButton" 
-                text="💾 Create Product" 
+                text="Create Product" 
                 onAction="#handleSave"
                 styleClass="primary-button"
+                style="-fx-font-size: 14px; -fx-font-weight: 700;"
                 prefWidth="180"
-                prefHeight="45"
-                style="-fx-font-size: 14px; -fx-font-weight: 700;"/>
+                prefHeight="45"/>
         <Button fx:id="cancelButton" 
                 text="Cancel" 
                 onAction="#handleCancel"

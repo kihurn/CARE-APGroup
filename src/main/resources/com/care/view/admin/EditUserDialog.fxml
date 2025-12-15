@@ -87,9 +87,10 @@
                 onAction="#handleCancel"
                 styleClass="secondary-button"
                 prefWidth="120"/>
-        <Button text="💾 Update User" 
+        <Button text="Update User" 
                 onAction="#handleUpdate"
                 styleClass="primary-button"
+                style="-fx-font-weight: bold;"
                 prefWidth="140"/>
     </HBox>
     

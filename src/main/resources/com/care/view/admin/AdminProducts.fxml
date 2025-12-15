@@ -22,9 +22,10 @@
             <Text text="Add, edit, or remove products from the catalog" styleClass="section-subtitle"/>
         </VBox>
         
-        <Button text="➕ Add Product" 
-                onAction="#handleAddProduct"
-                styleClass="primary-button"/>
+        <Button text="Add Product" 
+                    onAction="#handleAddProduct"
+                    styleClass="primary-button"
+                    style="-fx-font-weight: bold;"/>
     </HBox>
     
     <!-- Filter Section -->

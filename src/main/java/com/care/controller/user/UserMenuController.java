@@ -15,7 +15,7 @@ public class UserMenuController {
     @FXML private Text userRoleText;
     @FXML private Button newChatBtn;
     @FXML private Button historyBtn;
-    @FXML private Button knowledgeBaseBtn;
+    // @FXML private Button knowledgeBaseBtn; // Removed from UI
     @FXML private Button profileBtn;
     @FXML private Button logoutBtn;
     
@@ -48,11 +48,13 @@ public class UserMenuController {
         viewFactory.setUserSelectedMenuItem("UserHistory");
     }
     
+    /*
     @FXML
     private void handleKnowledgeBase() {
         System.out.println("Knowledge Base clicked");
         viewFactory.setUserSelectedMenuItem("KnowledgeBase");
     }
+    */
     
     @FXML
     private void handleProfile() {

@@ -71,7 +71,8 @@
                 <Button fx:id="cancelButton" text="Cancel" styleClass="secondary-button" 
                         onAction="#handleCancel" minWidth="100" prefHeight="40"/>
                 
-                <Button fx:id="createButton" text="➕ Create User" styleClass="primary-button" 
+                <Button fx:id="createButton" text="Create User" styleClass="primary-button" 
+                        style="-fx-font-weight: bold;"
                         onAction="#handleCreateUser" minWidth="150" prefHeight="40"/>
             </HBox>
         </VBox>

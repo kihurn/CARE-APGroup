@@ -23,7 +23,6 @@
             <Insets top="20" right="15" bottom="20" left="15"/>
         </padding>
         
-        <Text text="👨‍💼" style="-fx-font-size: 40px;"/>
         <Text fx:id="adminNameText" text="Admin Name" styleClass="sidebar-username"/>
         <Text fx:id="adminRoleText" text="ADMIN" styleClass="sidebar-role"/>
     </VBox>
@@ -35,39 +34,45 @@
         </padding>
         
         <Button fx:id="dashboardBtn" 
-                text="📊 Dashboard" 
+                text="Dashboard" 
                 onAction="#handleDashboard"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <Button fx:id="manageUsersBtn" 
-                text="👥 Manage Users" 
+                text="Manage Users" 
                 onAction="#handleManageUsers"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <Button fx:id="manageProductsBtn" 
-                text="📦 Manage Products" 
+                text="Manage Products" 
                 onAction="#handleManageProducts"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <Button fx:id="knowledgeBaseBtn" 
-                text="📚 Knowledge Base" 
+                text="Knowledge Base" 
                 onAction="#handleKnowledgeBase"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <Button fx:id="ticketsBtn" 
-                text="🎫 View Tickets" 
+                text="View Tickets" 
                 onAction="#handleTickets"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <Button fx:id="reportsBtn" 
-                text="📈 Reports" 
+                text="Reports" 
                 onAction="#handleReports"
                 styleClass="sidebar-button"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
         
         <!-- Spacer -->
@@ -76,9 +81,10 @@
         <Separator/>
         
         <Button fx:id="logoutBtn" 
-                text="🚪 Logout" 
+                text="Logout" 
                 onAction="#handleLogout"
                 styleClass="sidebar-button-danger"
+                style="-fx-font-weight: bold;"
                 maxWidth="Infinity"/>
     </VBox>
     

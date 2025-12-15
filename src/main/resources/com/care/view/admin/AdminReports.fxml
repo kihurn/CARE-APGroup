@@ -17,7 +17,7 @@
     
     <!-- Header -->
     <HBox alignment="CENTER_LEFT" spacing="20">
-        <Text text="📊 Analytics & Reports" styleClass="page-title"/>
+        <Text text="Analytics &amp; Reports" styleClass="page-title"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="🔄 Refresh" onAction="#handleRefresh" styleClass="primary-button"/>
         <Button text="📥 Export Report" onAction="#handleExport" styleClass="secondary-button"/>
@@ -83,7 +83,7 @@
     
     <!-- Top Issues Table -->
     <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
-        <Text text="📋 Top Issues & Keywords" styleClass="section-title"/>
+        <Text text="Top Issues &amp; Keywords" styleClass="section-title"/>
         <TableView fx:id="topIssuesTable" styleClass="data-table" prefHeight="200" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
             <columns>
                 <TableColumn fx:id="keywordCol" text="Keyword" minWidth="150"/>

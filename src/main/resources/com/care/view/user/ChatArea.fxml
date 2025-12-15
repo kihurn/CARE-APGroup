@@ -31,14 +31,16 @@
             <Region HBox.hgrow="ALWAYS"/>
             
             <Button fx:id="escalateBtn" 
-                    text="🆘 Escalate to Agent" 
+                    text="Escalate to Agent" 
                     onAction="#handleEscalate"
-                    styleClass="secondary-button"/>
+                    styleClass="secondary-button"
+                    style="-fx-font-weight: bold;"/>
             
             <Button fx:id="endChatBtn" 
-                    text="✓ End Chat" 
+                    text="End Chat" 
                     onAction="#handleEndChat"
-                    styleClass="primary-button"/>
+                    styleClass="primary-button"
+                    style="-fx-font-weight: bold;"/>
         </HBox>
     </top>
     
@@ -63,7 +65,6 @@
                         <padding>
                             <Insets top="30" right="30" bottom="30" left="30"/>
                         </padding>
-                        <Text text="👋" style="-fx-font-size: 40px;"/>
                         <Text text="Welcome to CARE Support" 
                               style="-fx-font-size: 20px; -fx-font-weight: 700; -fx-fill: #212529;"/>
                         <Text text="Ask me anything about your product, and I'll do my best to help!" 
@@ -92,12 +93,21 @@
                       HBox.hgrow="ALWAYS"
                       onAction="#handleSendMessage"/>
             
+            <Button fx:id="attachBtn" 
+                    text="📎" 
+                    onAction="#handleAttachImage"
+                    styleClass="secondary-button"
+                    style="-fx-font-size: 20px;"
+                    prefHeight="45"
+                    prefWidth="55"/>
+            
             <Button fx:id="sendBtn" 
-                    text="Send 📤" 
+                    text="Send" 
                     onAction="#handleSendMessage"
                     styleClass="primary-button"
+                    style="-fx-font-weight: bold;"
                     prefHeight="45"
-                    prefWidth="120"/>
+                    prefWidth="100"/>
         </HBox>
     </bottom>
     
