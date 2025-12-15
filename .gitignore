@@ -71,5 +71,3 @@ desktop.ini
 .attach_pid*
 hs_err_pid*
 replay_pid*
-
-src/main/resources/config.properties
