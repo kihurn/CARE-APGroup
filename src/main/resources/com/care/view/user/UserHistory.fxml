@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.user.UserHistoryController"
+      spacing="20"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Text text="Chat History" styleClass="section-title"/>
+            <Text text="View your previous support sessions" styleClass="section-subtitle"/>
+        </VBox>
+        
+        <Button text="🔄 Refresh" 
+                onAction="#handleRefresh"
+                styleClass="secondary-button"/>
+    </HBox>
+    
+    <!-- Filter Section -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Label text="Filter by Status:" styleClass="form-label"/>
+        <ComboBox fx:id="statusFilterCombo" 
+                 promptText="All"
+                 prefWidth="150"
+                 onAction="#handleFilterChange"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <Label fx:id="totalSessionsLabel" 
+               text="Total Sessions: 0"
+               style="-fx-font-weight: 600; -fx-text-fill: #495057;"/>
+    </HBox>
+    
+    <!-- History Table -->
+    <TableView fx:id="historyTable" 
+               styleClass="data-table"
+               VBox.vgrow="ALWAYS">
+        
+        <columns>
+            <TableColumn fx:id="sessionIdCol" 
+                        text="Session ID" 
+                        minWidth="80"
+                        maxWidth="120"/>
+            
+            <TableColumn fx:id="dateCol" 
+                        text="Date" 
+                        minWidth="120"
+                        maxWidth="180"/>
+            
+            <TableColumn fx:id="productCol" 
+                        text="Product" 
+                        minWidth="150"/>
+            
+            <TableColumn fx:id="statusCol" 
+                        text="Status" 
+                        minWidth="90"
+                        maxWidth="130"/>
+            
+            <TableColumn fx:id="messagesCountCol" 
+                        text="Messages" 
+                        minWidth="70"
+                        maxWidth="110"/>
+            
+            <TableColumn fx:id="actionsCol" 
+                        text="Actions" 
+                        minWidth="120"
+                        maxWidth="180"/>
+        </columns>
+        
+        <placeholder>
+            <VBox alignment="CENTER" spacing="10">
+                <padding>
+                    <Insets top="50" right="30" bottom="50" left="30"/>
+                </padding>
+                <Text text="📭" style="-fx-font-size: 48px;"/>
+                <Text text="No chat history yet" 
+                      style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
+                <Text text="Start a new chat session to see it here!" 
+                      style="-fx-font-size: 14px; -fx-fill: #adb5bd;"/>
+            </VBox>
+        </placeholder>
+    </TableView>
+    
+</VBox>
+

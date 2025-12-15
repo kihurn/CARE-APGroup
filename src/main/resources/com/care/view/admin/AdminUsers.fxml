@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.admin.AdminUsersController"
+      spacing="20"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Text text="Manage Users" styleClass="section-title"/>
+            <Text text="Add, edit, or remove user accounts" styleClass="section-subtitle"/>
+        </VBox>
+        
+        <Button text="➕ Add User" 
+                onAction="#handleAddUser"
+                styleClass="primary-button"/>
+    </HBox>
+    
+    <!-- Filter Section -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Label text="Filter by Role:" styleClass="form-label"/>
+        <ComboBox fx:id="roleFilterCombo" 
+                 promptText="All Roles"
+                 prefWidth="150"
+                 onAction="#handleFilterChange"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <TextField fx:id="searchField" 
+                  promptText="🔍 Search by name or email"
+                  prefWidth="250"
+                  styleClass="form-field"/>
+        
+        <Button text="🔄 Refresh" 
+                onAction="#handleRefresh"
+                styleClass="secondary-button"/>
+    </HBox>
+    
+    <!-- Users Table -->
+    <TableView fx:id="usersTable" 
+               styleClass="data-table"
+               VBox.vgrow="ALWAYS"
+               minHeight="300"
+               prefHeight="500">
+        
+        <columns>
+            <TableColumn fx:id="userIdCol" 
+                        text="ID" 
+                        minWidth="50"
+                        maxWidth="80"/>
+            
+            <TableColumn fx:id="nameCol" 
+                        text="Name" 
+                        minWidth="120"/>
+            
+            <TableColumn fx:id="emailCol" 
+                        text="Email" 
+                        minWidth="150"/>
+            
+            <TableColumn fx:id="roleCol" 
+                        text="Role" 
+                        minWidth="80"
+                        maxWidth="120"/>
+            
+            <TableColumn fx:id="licenseKeyCol" 
+                        text="License Key" 
+                        minWidth="120"/>
+            
+            <TableColumn fx:id="createdAtCol" 
+                        text="Created" 
+                        minWidth="100"
+                        maxWidth="150"/>
+            
+            <TableColumn fx:id="actionsCol" 
+                        text="Actions" 
+                        minWidth="120"
+                        maxWidth="180"/>
+        </columns>
+        
+        <placeholder>
+            <VBox alignment="CENTER" spacing="10">
+                <padding>
+                    <Insets top="50" right="30" bottom="50" left="30"/>
+                </padding>
+                <Text text="👥" style="-fx-font-size: 48px;"/>
+                <Text text="No users found" 
+                      style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
+            </VBox>
+        </placeholder>
+    </TableView>
+    
+    <!-- Footer Stats -->
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Label fx:id="totalUsersLabel" 
+               text="Total Users: 0"
+               style="-fx-font-weight: 600; -fx-text-fill: #495057;"/>
+        <Separator orientation="VERTICAL"/>
+        <Label fx:id="adminsCountLabel" 
+               text="Admins: 0"
+               style="-fx-text-fill: #6c757d;"/>
+        <Label fx:id="agentsCountLabel" 
+               text="Agents: 0"
+               style="-fx-text-fill: #6c757d;"/>
+        <Label fx:id="usersCountLabel" 
+               text="Users: 0"
+               style="-fx-text-fill: #6c757d;"/>
+    </HBox>
+    
+</VBox>
+

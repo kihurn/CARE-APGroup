@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.admin.EditUserDialogController"
+            fitToWidth="true"
+            style="-fx-background-color: white; -fx-background: white;">
+    
+<VBox
+      spacing="20"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <VBox spacing="5">
+        <Text text="Edit User" 
+              style="-fx-font-size: 24px; -fx-font-weight: 700; -fx-fill: #667eea;"/>
+        <Text text="Update user account details" 
+              style="-fx-font-size: 13px; -fx-fill: #6c757d;"/>
+    </VBox>
+    
+    <Separator/>
+    
+    <!-- Form Fields -->
+    <VBox spacing="15">
+        
+        <!-- Name Field -->
+        <VBox spacing="5">
+            <Label text="Full Name *" styleClass="form-label"/>
+            <TextField fx:id="nameField" 
+                      promptText="Enter user's full name"
+                      styleClass="form-field"/>
+        </VBox>
+        
+        <!-- Email Field -->
+        <VBox spacing="5">
+            <Label text="Email Address *" styleClass="form-label"/>
+            <TextField fx:id="emailField" 
+                      promptText="user@example.com"
+                      styleClass="form-field"/>
+        </VBox>
+        
+        <!-- Role Field -->
+        <VBox spacing="5">
+            <Label text="Role *" styleClass="form-label"/>
+            <ComboBox fx:id="roleComboBox" 
+                     promptText="Select role"
+                     prefWidth="200"
+                     styleClass="form-field"/>
+        </VBox>
+        
+        <!-- License Key Field (Read-only display) -->
+        <VBox spacing="5">
+            <Label text="License Key" styleClass="form-label"/>
+            <TextField fx:id="licenseKeyField" 
+                      editable="false"
+                      styleClass="form-field"
+                      style="-fx-background-color: #f8f9fa;"/>
+        </VBox>
+        
+        <!-- 2FA Toggle -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <CheckBox fx:id="enable2FACheckBox" 
+                     text="Enable Two-Factor Authentication"/>
+        </HBox>
+        
+    </VBox>
+    
+    <!-- Error Message -->
+    <Label fx:id="errorLabel" 
+           textFill="red" 
+           wrapText="true" 
+           visible="false"
+           managed="false"/>
+    
+    <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="Cancel" 
+                onAction="#handleCancel"
+                styleClass="secondary-button"
+                prefWidth="120"/>
+        <Button text="💾 Update User" 
+                onAction="#handleUpdate"
+                styleClass="primary-button"
+                prefWidth="140"/>
+    </HBox>
+    
+</VBox>
+</ScrollPane>
+

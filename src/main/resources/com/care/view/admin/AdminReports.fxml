@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.admin.AdminReportsController"
+      spacing="20" styleClass="content-container">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Text text="📊 Analytics & Reports" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🔄 Refresh" onAction="#handleRefresh" styleClass="primary-button"/>
+        <Button text="📥 Export Report" onAction="#handleExport" styleClass="secondary-button"/>
+    </HBox>
+    
+    <!-- Key Metrics Cards -->
+    <HBox spacing="20" styleClass="stats-container">
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #e3f2fd; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalChatsText" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #1976d2;"/>
+            <Text text="Total Chats" style="-fx-font-size: 14px; -fx-fill: #424242;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #fff3e0; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+            <Text fx:id="escalationRateText" text="0%" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #f57c00;"/>
+            <Text text="Escalation Rate" style="-fx-font-size: 14px; -fx-fill: #424242;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #e8f5e9; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+            <Text fx:id="resolvedTicketsText" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #388e3c;"/>
+            <Text text="Resolved Tickets" style="-fx-font-size: 14px; -fx-fill: #424242;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #fce4ec; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+            <Text fx:id="avgResponseTimeText" text="0 min" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #c2185b;"/>
+            <Text text="Avg Response Time" style="-fx-font-size: 14px; -fx-fill: #424242;"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Charts Row 1 -->
+    <HBox spacing="20">
+        <!-- Product Escalation Chart -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="Escalations by Product" styleClass="section-title"/>
+            <BarChart fx:id="productEscalationChart" legendVisible="false" prefHeight="300">
+                <xAxis>
+                    <CategoryAxis label="Product" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Escalations" />
+                </yAxis>
+            </BarChart>
+        </VBox>
+        
+        <!-- Ticket Status Distribution -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="Ticket Status Distribution" styleClass="section-title"/>
+            <PieChart fx:id="ticketStatusChart" legendVisible="true" prefHeight="300"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Charts Row 2 -->
+    <HBox spacing="20">
+        <!-- Sessions Over Time -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="Chat Sessions Over Time (Last 7 Days)" styleClass="section-title"/>
+            <LineChart fx:id="sessionsTimeChart" legendVisible="false" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Date" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Sessions" />
+                </yAxis>
+            </LineChart>
+        </VBox>
+    </HBox>
+    
+    <!-- Top Issues Table -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+        <Text text="📋 Top Issues & Keywords" styleClass="section-title"/>
+        <TableView fx:id="topIssuesTable" styleClass="data-table" prefHeight="200" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
+            <columns>
+                <TableColumn fx:id="keywordCol" text="Keyword" minWidth="150"/>
+                <TableColumn fx:id="productNameCol" text="Product" minWidth="150"/>
+                <TableColumn fx:id="occurrencesCol" text="Occurrences" minWidth="100" maxWidth="120"/>
+                <TableColumn fx:id="escalationCountCol" text="Escalations" minWidth="100" maxWidth="120"/>
+                <TableColumn fx:id="issueRateCol" text="Issue Rate" minWidth="100" maxWidth="120"/>
+            </columns>
+        </TableView>
+    </VBox>
+    
+    <!-- Agent Performance Table -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+        <Text text="👨‍💼 Agent Performance" styleClass="section-title"/>
+        <TableView fx:id="agentPerformanceTable" styleClass="data-table" prefHeight="180" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
+            <columns>
+                <TableColumn fx:id="agentNameCol" text="Agent Name" minWidth="150"/>
+                <TableColumn fx:id="assignedTicketsCol" text="Assigned" minWidth="80" maxWidth="100"/>
+                <TableColumn fx:id="resolvedTicketsCol" text="Resolved" minWidth="80" maxWidth="100"/>
+                <TableColumn fx:id="resolutionRateCol" text="Resolution Rate" minWidth="120" maxWidth="150"/>
+                <TableColumn fx:id="avgResolutionTimeCol" text="Avg Time (hrs)" minWidth="120" maxWidth="150"/>
+            </columns>
+        </TableView>
+    </VBox>
+    
+</VBox>
+

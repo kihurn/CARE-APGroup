@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.admin.AddProductDialogController"
+      spacing="15"
+      style="-fx-background-color: white; -fx-padding: 25;">
+    
+    <!-- Title -->
+    <VBox spacing="5">
+        <Text text="Add New Product" style="-fx-font-size: 24px; -fx-font-weight: 700; -fx-fill: #212529;"/>
+        <Text text="Enter product details and optionally upload a manual" 
+              style="-fx-font-size: 13px; -fx-fill: #6c757d;"/>
+    </VBox>
+    
+    <!-- Product Information -->
+    <VBox spacing="12">
+        
+        <!-- Product Name -->
+        <VBox spacing="6">
+            <Label text="Product Name *" styleClass="form-label"/>
+            <TextField fx:id="productNameField" 
+                      promptText="e.g., UltraFast Router Pro"
+                      styleClass="form-field"
+                      prefHeight="38"/>
+        </VBox>
+        
+        <!-- Model Version -->
+        <VBox spacing="6">
+            <Label text="Model/Version *" styleClass="form-label"/>
+            <TextField fx:id="modelVersionField" 
+                      promptText="e.g., v2.0"
+                      styleClass="form-field"
+                      prefHeight="38"/>
+        </VBox>
+        
+        <!-- Category -->
+        <VBox spacing="6">
+            <Label text="Category *" styleClass="form-label"/>
+            <ComboBox fx:id="categoryCombo" 
+                     promptText="Select category"
+                     styleClass="form-field"
+                     prefHeight="38"
+                     maxWidth="Infinity"/>
+        </VBox>
+        
+    </VBox>
+    
+    <!-- Manual Upload Section -->
+    <VBox spacing="8">
+        <Label text="Product Manual (Optional)" styleClass="form-label"/>
+        
+        <!-- Upload Zone -->
+        <VBox fx:id="uploadZone" 
+              alignment="CENTER" 
+              spacing="6" 
+              styleClass="upload-zone"
+              onMouseClicked="#handleSelectFile"
+              prefHeight="100">
+            <Text text="📄" style="-fx-font-size: 32px;"/>
+            <Label text="Click to select PDF manual" styleClass="upload-zone-label"/>
+            <Label text="Supported format: PDF files only" styleClass="upload-zone-sublabel"/>
+        </VBox>
+        
+        <!-- Selected File Display -->
+        <HBox fx:id="selectedFileBox" 
+              spacing="10" 
+              alignment="CENTER_LEFT"
+              visible="false"
+              styleClass="file-chip">
+            <Label fx:id="selectedFileLabel" text="No file selected"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="✖" 
+                    onAction="#handleClearFile"
+                    style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Error Label -->
+    <Label fx:id="errorLabel" 
+           styleClass="error-label" 
+           visible="false"
+           wrapText="true"/>
+    
+    <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+        <Button fx:id="saveButton" 
+                text="💾 Create Product" 
+                onAction="#handleSave"
+                styleClass="primary-button"
+                prefWidth="180"
+                prefHeight="45"
+                style="-fx-font-size: 14px; -fx-font-weight: 700;"/>
+        <Button fx:id="cancelButton" 
+                text="Cancel" 
+                onAction="#handleCancel"
+                styleClass="secondary-button"
+                prefWidth="130"
+                prefHeight="45"
+                style="-fx-font-size: 14px;"/>
+    </HBox>
+    
+</VBox>
+

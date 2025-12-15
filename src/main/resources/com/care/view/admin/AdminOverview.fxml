@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.admin.AdminOverviewController"
+      spacing="25"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    
+    <!-- Header -->
+    <VBox spacing="5">
+        <Text text="System Overview" styleClass="section-title"/>
+        <Text text="Monitor key metrics and system health" styleClass="section-subtitle"/>
+    </VBox>
+    
+    <!-- Stat Cards -->
+    <HBox spacing="20">
+        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Text text="TOTAL USERS" styleClass="stat-label"/>
+            <Text fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
+            <Text text="Registered accounts" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        </VBox>
+        
+        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Text text="ACTIVE SESSIONS" styleClass="stat-label"/>
+            <Text fx:id="activeSessionsLabel" text="0" styleClass="stat-value"/>
+            <Text text="Currently chatting" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        </VBox>
+        
+        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Text text="OPEN TICKETS" styleClass="stat-label"/>
+            <Text fx:id="openTicketsLabel" text="0" styleClass="stat-value"/>
+            <Text text="Needs attention" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        </VBox>
+        
+        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Text text="PRODUCTS" styleClass="stat-label"/>
+            <Text fx:id="totalProductsLabel" text="0" styleClass="stat-value"/>
+            <Text text="In catalog" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Recent Activity -->
+    <VBox spacing="15">
+        <Text text="Recent Activity" style="-fx-font-size: 20px; -fx-font-weight: 700; -fx-fill: #212529;"/>
+        
+        <TableView fx:id="recentActivityTable" styleClass="data-table" prefHeight="300">
+            <columns>
+                <TableColumn text="Time" prefWidth="150"/>
+                <TableColumn text="User" prefWidth="150"/>
+                <TableColumn text="Action" prefWidth="250"/>
+                <TableColumn text="Status" prefWidth="100"/>
+            </columns>
+            <placeholder>
+                <VBox alignment="CENTER" spacing="10">
+                    <padding>
+                        <Insets top="30" right="20" bottom="30" left="20"/>
+                    </padding>
+                    <Text text="📊" style="-fx-font-size: 36px;"/>
+                    <Text text="No recent activity" 
+                          style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
+                </VBox>
+            </placeholder>
+        </TableView>
+    </VBox>
+    
+    <!-- Quick Actions -->
+    <HBox spacing="12">
+        <Button text="🔄 Refresh Stats" 
+                onAction="#handleRefresh"
+                styleClass="primary-button"/>
+        <Button text="📊 Full Report" 
+                onAction="#handleFullReport"
+                styleClass="secondary-button"/>
+    </HBox>
+    
+</VBox>
+

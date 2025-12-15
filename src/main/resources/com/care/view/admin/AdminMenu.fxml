@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.admin.AdminMenuController"
+      styleClass="sidebar-menu"
+      spacing="10"
+      prefWidth="250"
+      minWidth="250">
+    
+    <padding>
+        <Insets top="20" right="15" bottom="20" left="15"/>
+    </padding>
+    
+    <!-- Admin Info Section -->
+    <VBox alignment="CENTER" spacing="10" styleClass="user-info-card">
+        <padding>
+            <Insets top="20" right="15" bottom="20" left="15"/>
+        </padding>
+        
+        <Text text="👨‍💼" style="-fx-font-size: 40px;"/>
+        <Text fx:id="adminNameText" text="Admin Name" styleClass="sidebar-username"/>
+        <Text fx:id="adminRoleText" text="ADMIN" styleClass="sidebar-role"/>
+    </VBox>
+    
+    <!-- Navigation Buttons -->
+    <VBox spacing="8" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="20" right="0" bottom="0" left="0"/>
+        </padding>
+        
+        <Button fx:id="dashboardBtn" 
+                text="📊 Dashboard" 
+                onAction="#handleDashboard"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="manageUsersBtn" 
+                text="👥 Manage Users" 
+                onAction="#handleManageUsers"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="manageProductsBtn" 
+                text="📦 Manage Products" 
+                onAction="#handleManageProducts"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="knowledgeBaseBtn" 
+                text="📚 Knowledge Base" 
+                onAction="#handleKnowledgeBase"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="ticketsBtn" 
+                text="🎫 View Tickets" 
+                onAction="#handleTickets"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="reportsBtn" 
+                text="📈 Reports" 
+                onAction="#handleReports"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <!-- Spacer -->
+        <Region VBox.vgrow="ALWAYS"/>
+        
+        <Separator/>
+        
+        <Button fx:id="logoutBtn" 
+                text="🚪 Logout" 
+                onAction="#handleLogout"
+                styleClass="sidebar-button-danger"
+                maxWidth="Infinity"/>
+    </VBox>
+    
+</VBox>
+

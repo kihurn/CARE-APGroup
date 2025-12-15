@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.user.UserMenuController"
+      styleClass="sidebar-menu"
+      spacing="10"
+      prefWidth="250"
+      minWidth="250">
+    
+    <padding>
+        <Insets top="20" right="15" bottom="20" left="15"/>
+    </padding>
+    
+    <!-- User Info Section -->
+    <VBox alignment="CENTER" spacing="10" styleClass="user-info-card">
+        <padding>
+            <Insets top="20" right="15" bottom="20" left="15"/>
+        </padding>
+        
+        <Text text="👤" style="-fx-font-size: 40px;"/>
+        <Text fx:id="userNameText" text="User Name" styleClass="sidebar-username"/>
+        <Text fx:id="userRoleText" text="USER" styleClass="sidebar-role"/>
+    </VBox>
+    
+    <!-- Navigation Buttons -->
+    <VBox spacing="8" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="20" right="0" bottom="0" left="0"/>
+        </padding>
+        
+        <Button fx:id="newChatBtn" 
+                text="🆕 New Chat" 
+                onAction="#handleNewChat"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="historyBtn" 
+                text="📜 History" 
+                onAction="#handleHistory"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="knowledgeBaseBtn" 
+                text="📚 Knowledge Base" 
+                onAction="#handleKnowledgeBase"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <Button fx:id="profileBtn" 
+                text="⚙️ Profile" 
+                onAction="#handleProfile"
+                styleClass="sidebar-button"
+                maxWidth="Infinity"/>
+        
+        <!-- Spacer -->
+        <Region VBox.vgrow="ALWAYS"/>
+        
+        <Separator/>
+        
+        <Button fx:id="logoutBtn" 
+                text="🚪 Logout" 
+                onAction="#handleLogout"
+                styleClass="sidebar-button-danger"
+                maxWidth="Infinity"/>
+    </VBox>
+    
+</VBox>
+

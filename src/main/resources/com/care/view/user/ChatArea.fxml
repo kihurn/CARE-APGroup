@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.user.ChatAreaController"
+            style="-fx-background-color: #f8f9fa;">
+    
+    <!-- Top: Chat Header -->
+    <top>
+        <HBox alignment="CENTER_LEFT" 
+              spacing="15" 
+              style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+            
+            <VBox spacing="3">
+                <Text fx:id="chatTitleText" 
+                      text="Chat Session" 
+                      style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-fill: #212529;"/>
+                <Text fx:id="chatSubtitleText" 
+                      text="Product: Not Selected" 
+                      style="-fx-font-size: 13px; -fx-fill: #6c757d;"/>
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Button fx:id="escalateBtn" 
+                    text="🆘 Escalate to Agent" 
+                    onAction="#handleEscalate"
+                    styleClass="secondary-button"/>
+            
+            <Button fx:id="endChatBtn" 
+                    text="✓ End Chat" 
+                    onAction="#handleEndChat"
+                    styleClass="primary-button"/>
+        </HBox>
+    </top>
+    
+    <!-- Center: Messages Area -->
+    <center>
+        <VBox>
+            <ScrollPane fx:id="messagesScrollPane" 
+                       fitToWidth="true" 
+                       hbarPolicy="NEVER"
+                       vbarPolicy="AS_NEEDED"
+                       style="-fx-background: #f8f9fa; -fx-background-color: #f8f9fa;">
+                
+                <VBox fx:id="messagesContainer" 
+                      spacing="15" 
+                      style="-fx-background-color: #f8f9fa;">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <!-- Welcome Message -->
+                    <VBox alignment="CENTER" spacing="10" styleClass="welcome-card">
+                        <padding>
+                            <Insets top="30" right="30" bottom="30" left="30"/>
+                        </padding>
+                        <Text text="👋" style="-fx-font-size: 40px;"/>
+                        <Text text="Welcome to CARE Support" 
+                              style="-fx-font-size: 20px; -fx-font-weight: 700; -fx-fill: #212529;"/>
+                        <Text text="Ask me anything about your product, and I'll do my best to help!" 
+                              style="-fx-font-size: 14px; -fx-fill: #6c757d;"
+                              textAlignment="CENTER"/>
+                    </VBox>
+                    
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+    
+    <!-- Bottom: Input Area -->
+    <bottom>
+        <HBox spacing="12" 
+              alignment="CENTER" 
+              style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+            
+            <TextField fx:id="messageInputField" 
+                      promptText="Type your message here..."
+                      styleClass="form-field"
+                      prefHeight="45"
+                      HBox.hgrow="ALWAYS"
+                      onAction="#handleSendMessage"/>
+            
+            <Button fx:id="sendBtn" 
+                    text="Send 📤" 
+                    onAction="#handleSendMessage"
+                    styleClass="primary-button"
+                    prefHeight="45"
+                    prefWidth="120"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>
+

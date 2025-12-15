@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.user.UserDashboardController"
+            prefHeight="900" prefWidth="1400">
+    
+    <!-- Left: Sidebar Menu -->
+    <left>
+        <fx:include source="UserMenu.fxml"/>
+    </left>
+    
+    <!-- Center: Dynamic Content Area -->
+    <center>
+        <StackPane fx:id="centerContentPane" 
+                   style="-fx-background-color: white;">
+            <!-- Content will be loaded dynamically here -->
+        </StackPane>
+    </center>
+    
+</BorderPane>

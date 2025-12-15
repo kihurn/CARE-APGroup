@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.care.controller.user.SelectProductController"
+      spacing="25"
+      alignment="TOP_CENTER"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
+    
+    <!-- Header -->
+    <VBox alignment="CENTER" spacing="10">
+        <Text text="Select Product" styleClass="section-title"/>
+        <Text text="Choose the product you need help with" 
+              styleClass="section-subtitle"/>
+    </VBox>
+    
+    <!-- Selection Card -->
+    <VBox spacing="20" styleClass="content-card" maxWidth="600">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+        
+        <!-- Category Selection -->
+        <VBox spacing="10">
+            <Label text="Product Category" styleClass="form-label"/>
+            <ComboBox fx:id="categoryComboBox" 
+                     promptText="Select a category"
+                     styleClass="form-field"
+                     prefHeight="45"
+                     maxWidth="Infinity"
+                     onAction="#handleCategoryChange"/>
+        </VBox>
+        
+        <!-- Product Selection -->
+        <VBox spacing="10">
+            <Label text="Product Model" styleClass="form-label"/>
+            <ComboBox fx:id="productComboBox" 
+                     promptText="Select a product"
+                     styleClass="form-field"
+                     prefHeight="45"
+                     maxWidth="Infinity"
+                     disable="true"/>
+        </VBox>
+        
+        <!-- Product Details -->
+        <VBox fx:id="productDetailsBox" 
+              spacing="10" 
+              visible="false"
+              styleClass="info-box">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label fx:id="productNameLabel" styleClass="product-name"/>
+            <Label fx:id="productVersionLabel" styleClass="product-version"/>
+        </VBox>
+        
+        <!-- Action Button -->
+        <Button fx:id="startChatBtn" 
+                text="Start Chat" 
+                onAction="#handleStartChat"
+                styleClass="primary-button"
+                maxWidth="Infinity"
+                prefHeight="50"
+                disable="true"/>
+    </VBox>
+    
+</VBox>
+

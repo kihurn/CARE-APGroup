@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<!-- Use BorderPane so we can pin buttons to the bottom -->
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.admin.AddUserDialogController"
+            stylesheets="@../../styles/main.css"
+            prefWidth="500" prefHeight="650">
+
+    <!-- HEADER (Pinned to Top) -->
+    <top>
+        <VBox style="-fx-padding: 20 30 10 30; -fx-background-color: white;">
+            <Text text="Add New User" styleClass="section-title"/>
+        </VBox>
+    </top>
+
+    <!-- SCROLLABLE FORM (Takes up the middle space) -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: white; -fx-padding: 0;">
+            <content>
+                <VBox spacing="15" style="-fx-padding: 10 30 20 30; -fx-background-color: white;">
+                    
+                    <!-- Validation Message -->
+                    <Label fx:id="errorLabel" managed="false" visible="false" wrapText="true"/>
+
+                    <!-- Name Field -->
+                    <VBox spacing="5">
+                        <Label text="Full Name" styleClass="form-label"/>
+                        <TextField fx:id="nameField" promptText="Enter user's full name" styleClass="form-field"/>
+                    </VBox>
+                    
+                    <!-- Email Field -->
+                    <VBox spacing="5">
+                        <Label text="Email Address" styleClass="form-label"/>
+                        <TextField fx:id="emailField" promptText="user@example.com" styleClass="form-field"/>
+                    </VBox>
+                    
+                    <!-- Password Field -->
+                    <VBox spacing="5">
+                        <Label text="Password" styleClass="form-label"/>
+                        <PasswordField fx:id="passwordField" promptText="Enter password" styleClass="form-field"/>
+                    </VBox>
+                    
+                    <!-- Role Selection -->
+                    <VBox spacing="5">
+                        <Label text="User Role" styleClass="form-label"/>
+                        <ComboBox fx:id="roleComboBox" promptText="Select role" maxWidth="Infinity" styleClass="combo-box"/>
+                    </VBox>
+                    
+                    <!-- License Key (Optional) -->
+                    <VBox spacing="5">
+                        <Label text="License Key (Optional)" styleClass="form-label"/>
+                        <TextField fx:id="licenseKeyField" promptText="Leave empty to auto-generate" styleClass="form-field"/>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+<!-- BUTTONS (Pinned to Bottom) -->
+    <bottom>
+        <VBox style="-fx-padding: 15 30 20 30; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <!-- Removed fixed prefWidth so buttons can grow to fit text -->
+                <Button fx:id="cancelButton" text="Cancel" styleClass="secondary-button" 
+                        onAction="#handleCancel" minWidth="100" prefHeight="40"/>
+                
+                <Button fx:id="createButton" text="➕ Create User" styleClass="primary-button" 
+                        onAction="#handleCreateUser" minWidth="150" prefHeight="40"/>
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

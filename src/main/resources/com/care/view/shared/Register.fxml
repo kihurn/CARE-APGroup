@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.care.controller.shared.RegisterController"
+           styleClass="root"
+           prefHeight="800" prefWidth="1000">
+    
+    <!-- Centered Register Card -->
+    <VBox alignment="CENTER" spacing="20" styleClass="login-container">
+        <padding>
+            <Insets top="40" right="60" bottom="40" left="60"/>
+        </padding>
+        
+        <!-- Title Section -->
+        <VBox alignment="CENTER" spacing="6">
+            <Text text="Create Account" styleClass="title" style="-fx-font-size: 36px;"/>
+            <Text text="Join CARE to get instant support" styleClass="subtitle"/>
+        </VBox>
+        
+        <!-- Spacer -->
+        <Region minHeight="5"/>
+        
+        <!-- Registration Form -->
+        <VBox spacing="16" styleClass="form-container">
+            
+            <!-- Full Name -->
+            <VBox spacing="8">
+                <Label text="Full Name" styleClass="form-label"/>
+                <TextField fx:id="nameField" 
+                          promptText="John Doe" 
+                          styleClass="form-field"
+                          prefHeight="45"/>
+            </VBox>
+            
+            <!-- Email -->
+            <VBox spacing="8">
+                <Label text="Email Address" styleClass="form-label"/>
+                <TextField fx:id="emailField" 
+                          promptText="your.email@example.com" 
+                          styleClass="form-field"
+                          prefHeight="45"/>
+            </VBox>
+            
+            <!-- Password -->
+            <VBox spacing="8">
+                <Label text="Password" styleClass="form-label"/>
+                <PasswordField fx:id="passwordField" 
+                              promptText="Minimum 6 characters" 
+                              styleClass="form-field"
+                              prefHeight="45"/>
+            </VBox>
+            
+            <!-- Confirm Password -->
+            <VBox spacing="8">
+                <Label text="Confirm Password" styleClass="form-label"/>
+                <PasswordField fx:id="confirmPasswordField" 
+                              promptText="Re-enter your password" 
+                              styleClass="form-field"
+                              prefHeight="45"/>
+            </VBox>
+            
+            <!-- License Key (Optional) -->
+            <VBox spacing="8">
+                <Label text="License Key (Optional)" styleClass="form-label"/>
+                <TextField fx:id="licenseKeyField" 
+                          promptText="Enter if you have a license key" 
+                          styleClass="form-field"
+                          prefHeight="45"/>
+            </VBox>
+            
+            <!-- Error Message -->
+            <Label fx:id="errorLabel" 
+                   styleClass="error-label" 
+                   visible="false"
+                   wrapText="true"/>
+            
+            <!-- Spacer -->
+            <Region minHeight="5"/>
+            
+            <!-- Buttons -->
+            <VBox spacing="12" alignment="CENTER">
+                <Button fx:id="registerButton" 
+                       text="Create Account" 
+                       onAction="#handleRegister" 
+                       styleClass="primary-button"
+                       maxWidth="Infinity"
+                       prefHeight="45"/>
+                
+                <!-- Separator -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Separator HBox.hgrow="ALWAYS"/>
+                    <Label text="or" style="-fx-text-fill: #adb5bd; -fx-font-size: 12px;"/>
+                    <Separator HBox.hgrow="ALWAYS"/>
+                </HBox>
+                
+                <Button fx:id="backButton" 
+                       text="Back to Login" 
+                       onAction="#handleBack" 
+                       styleClass="secondary-button"
+                       maxWidth="Infinity"
+                       prefHeight="45"/>
+            </VBox>
+            
+        </VBox>
+        
+        <!-- Privacy Note -->
+        <Label text="By creating an account, you agree to CARE's Terms of Service" 
+               style="-fx-text-fill: #adb5bd; -fx-font-size: 11px; -fx-padding: 15 0 0 0;"
+               wrapText="true"/>
+        
+    </VBox>
+    
+</StackPane>
+
