@@ -29,22 +29,28 @@ CARE is a production-ready customer support application that provides AI-powered
 ### **USER** (Customer)
 - Chat with AI assistant
 - View chat history
+- Continue previous chat sessions
 - Manage profile and settings
 - Select products for support
+- Image attachment for issue analysis
 
 ### **AGENT** (Support Agent)
-- View assigned tickets
+- Dedicated agent portal with sidebar navigation
+- View assigned tickets dashboard
+- View conversation history
 - Reply to customers
 - Mark tickets as resolved
-- Filter and manage tickets
+- Filter tickets by status
+- Real-time ticket statistics
 
 ### **ADMIN** (Administrator)
 - Full system access
-- User management (CRUD)
+- User management (add, edit, delete, filter, license keys)
 - Product management with PDF upload
 - Knowledge base management
 - Ticket management and assignment
-- Analytics and reports
+- Analytics dashboard with charts
+- PDF report generation
 
 ## 📋 Features
 
@@ -54,41 +60,46 @@ CARE is a production-ready customer support application that provides AI-powered
 - Session management
 - Role-based routing
 - Secure password change
+- 2FA support (UI ready)
 
 ### User Portal
 - Product selection by category
 - AI chat with product context
-- Image attachment for issue analysis
+- Image attachment for issue analysis (Vision API)
 - Chat history viewing
 - Continue previous chats
 - Profile management
 - Password change
-- Preferences settings
+- Preferences settings (language, 2FA)
 
 ### Admin Portal
 - Dashboard with real-time statistics
-- User management (add, edit, delete, filter)
+- User management (add, edit, delete, filter, search)
 - Product management (add, delete, PDF upload)
 - Knowledge base management
 - Ticket management and assignment
 - Analytics dashboard with charts
 - PDF report generation
+- Recent escalations tracking
 
 ### Agent Portal
+- Modern sidebar navigation (similar to admin portal)
 - Assigned tickets dashboard
 - View conversation history
-- Reply to customers
+- Reply to customers via dialog
 - Mark tickets as resolved
 - Filter tickets by status
-- Real-time statistics
+- Real-time statistics (total, open, in progress)
+- Logout functionality
 
 ### AI & Intelligence
 - OpenAI GPT integration
-- Product context injection
+- Product context injection from knowledge base
 - PDF manual text extraction
 - Multi-language support (auto-detect)
 - Vision API for image analysis
 - Conversation history maintenance
+- Context-aware responses
 
 ## 📁 Project Structure
 
@@ -99,14 +110,18 @@ src/main/
 │   ├── model/                      # Data models (7 classes)
 │   ├── dao/                        # Data Access Objects (6 classes)
 │   ├── service/                    # Business logic (6 services)
-│   ├── controller/                 # JavaFX Controllers
-│   │   ├── shared/                 # Login, Register
-│   │   ├── user/                   # User portal (5 controllers)
+│   ├── controller/                 # JavaFX Controllers (22 controllers)
+│   │   ├── shared/                 # Login, Register (2 controllers)
+│   │   ├── user/                   # User portal (6 controllers)
 │   │   ├── admin/                  # Admin portal (11 controllers)
-│   │   └── agent/                  # Agent portal (1 controller)
-│   └── util/                       # Utilities
+│   │   └── agent/                  # Agent portal (3 controllers)
+│   └── util/                       # Utilities (DatabaseDriver, SessionManager, ViewFactory)
 ├── resources/com/care/
-│   ├── view/                       # FXML files (16 views)
+│   ├── view/                       # FXML files (22 views)
+│   │   ├── shared/                 # Login, Register
+│   │   ├── user/                   # User portal views
+│   │   ├── admin/                  # Admin portal views
+│   │   └── agent/                  # Agent portal views
 │   ├── styles/                     # CSS stylesheets
 │   └── sql/                        # Database schema
 └── config.properties               # Configuration
@@ -146,17 +161,19 @@ src/main/
 
 ### Default Credentials
 
-**Admin:** (has a portal)
+**Admin Portal:**
 - Email: `admin@care.com`
 - Password: `admin123`
 
-**Agent:** (does not have a portal)
-- Email: `agent@gmail.com`
-- Password: `password`
+**Agent Portal:**
+- Email: `agent@care.com` (or create your own agent account)
+- Password: `password` (if using default account)
 
-**User:** (has portal)
+**User Portal:**
 - Email: `user@gmail.com`
 - Password: `password`
+
+**Note:** The default `agent@gmail.com` account has been removed from schema initialization. Create agent accounts through the admin portal or use `agent@care.com` if it exists.
 
 ## ⚙️ Configuration
 
@@ -178,12 +195,12 @@ openai.temperature=0.7
 ## 📊 Database Schema
 
 The application uses SQLite with the following tables:
-- **users**: User accounts with roles
+- **users**: User accounts with roles (USER, AGENT, ADMIN)
 - **products**: Product catalog
-- **chat_sessions**: Chat conversations
-- **messages**: Individual messages
-- **tickets**: Escalated support tickets
-- **knowledge_base**: Documentation and support articles
+- **chat_sessions**: Chat conversations with status tracking
+- **messages**: Individual messages (USER, BOT, AGENT, SYSTEM)
+- **tickets**: Escalated support tickets with priority and status
+- **knowledge_base**: Documentation and support articles linked to products
 
 Database file: `care.db` (auto-created on first run)
 
@@ -201,6 +218,14 @@ Database file: `care.db` (auto-created on first run)
 3. **SessionManager**: Tracks logged-in user state
 4. **AIService**: Handles OpenAI API integration
 5. **Controllers**: Handle UI events and user interactions
+
+### UI Design
+- Modern gradient backgrounds
+- Sidebar navigation for all portals
+- Responsive table layouts with auto-resizing columns
+- Consistent styling across all views
+- White cards with subtle shadows
+- Bold text for buttons and tabs
 
 ## 📝 Development Guidelines
 
@@ -224,14 +249,5 @@ mvn test
 ### Issue: JavaFX modules not found
 **Solution**: Ensure Java 17+ is installed and JAVA_HOME is set correctly
 
-### Issue: Database connection fails
-**Solution**: Check file permissions in the project directory
-
 ### Issue: OpenAI API not working
-**Solution**: Check API key in `config.properties`, maybe the key is expired or blocked by OpennAI, and verify internet connection
-
-### Issue: FXML not loading
-**Solution**: Verify paths in ViewFactory match actual file locations
-
-
-**Version 2.0 - December 2024**
+**Solution**: Check API key in `config.properties`, verify the key is valid and not expired, and verify internet connection
