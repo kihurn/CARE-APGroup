@@ -18,7 +18,6 @@ public class AdminMenuController {
     @FXML private Button manageProductsBtn;
     @FXML private Button knowledgeBaseBtn;
     @FXML private Button ticketsBtn;
-    @FXML private Button reportsBtn;
     @FXML private Button logoutBtn;
     
     private SessionManager sessionManager;
@@ -66,12 +65,6 @@ public class AdminMenuController {
     private void handleTickets() {
         System.out.println("View Tickets clicked");
         viewFactory.setAdminSelectedMenuItem("AdminTickets");
-    }
-    
-    @FXML
-    private void handleReports() {
-        System.out.println("Reports clicked");
-        viewFactory.setAdminSelectedMenuItem("AdminReports");
     }
     
     @FXML

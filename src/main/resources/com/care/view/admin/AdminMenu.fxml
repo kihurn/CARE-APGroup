@@ -64,12 +64,6 @@
                 styleClass="sidebar-button"
                 maxWidth="Infinity"/>
         
-        <Button fx:id="reportsBtn" 
-                text="📈 Reports" 
-                onAction="#handleReports"
-                styleClass="sidebar-button"
-                maxWidth="Infinity"/>
-        
         <!-- Spacer -->
         <Region VBox.vgrow="ALWAYS"/>
         

@@ -65,6 +65,13 @@
             <version>0.4</version>
         </dependency>
 
+        <!-- JFreeChart for PDF Charts -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
         <!-- JUnit 5 for Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

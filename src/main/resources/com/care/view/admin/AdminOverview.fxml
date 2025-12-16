@@ -1,86 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.care.controller.admin.AdminOverviewController"
-      spacing="25"
-      style="-fx-background-color: white;">
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.admin.AdminOverviewController"
+            fitToWidth="true"
+            style="-fx-background-color: white;">
     
-    <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
-    </padding>
+    <VBox spacing="25"
+          style="-fx-background-color: white;">
+        
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
     
     <!-- Header -->
     <VBox spacing="5">
-        <Text text="System Overview" styleClass="section-title"/>
-        <Text text="Monitor key metrics and system health" styleClass="section-subtitle"/>
+        <Text text="Admin Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Text text="Real-time system metrics and analytics" style="-fx-font-size: 14px; -fx-fill: #666;"/>
     </VBox>
     
-    <!-- Stat Cards -->
+    <!-- Key Metrics Row 1 -->
     <HBox spacing="20">
-        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Text text="TOTAL USERS" styleClass="stat-label"/>
-            <Text fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
-            <Text text="Registered accounts" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #667eea; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalUsersText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Total Users" style="-fx-font-size: 14px; -fx-fill: white;"/>
         </VBox>
-        
-        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Text text="ACTIVE SESSIONS" styleClass="stat-label"/>
-            <Text fx:id="activeSessionsLabel" text="0" styleClass="stat-value"/>
-            <Text text="Currently chatting" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #f093fb; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalChatsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Total Chats" style="-fx-font-size: 14px; -fx-fill: white;"/>
         </VBox>
-        
-        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Text text="OPEN TICKETS" styleClass="stat-label"/>
-            <Text fx:id="openTicketsLabel" text="0" styleClass="stat-value"/>
-            <Text text="Needs attention" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #4facfe; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="activeSessionsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Active Sessions" style="-fx-font-size: 14px; -fx-fill: white;"/>
         </VBox>
-        
-        <VBox spacing="5" styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Text text="PRODUCTS" styleClass="stat-label"/>
-            <Text fx:id="totalProductsLabel" text="0" styleClass="stat-value"/>
-            <Text text="In catalog" style="-fx-font-size: 11px; -fx-fill: #6c757d;"/>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #43e97b; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalProductsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Products" style="-fx-font-size: 14px; -fx-fill: white;"/>
         </VBox>
     </HBox>
     
-    <!-- Recent Activity -->
-    <VBox spacing="15">
-        <Text text="Recent Activity" style="-fx-font-size: 20px; -fx-font-weight: 700; -fx-fill: #212529;"/>
+    <!-- Key Metrics Row 2 -->
+    <HBox spacing="20">
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #fa709a; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="escalationRateText" text="0%" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Escalation Rate" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #30cfd0; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="openTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Open Tickets" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #a8edea; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="resolvedTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Resolved Tickets" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #ffd89b; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
+            <Text fx:id="satisfactionText" text="0.0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
+            <Text text="Satisfaction ⭐/5" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Charts Row -->
+    <HBox spacing="20">
+        <!-- Product Escalations -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-background-radius: 12;">
+            <Text text="Escalations by Product" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <BarChart fx:id="productEscalationChart" legendVisible="false" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Product" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Count" />
+                </yAxis>
+            </BarChart>
+        </VBox>
         
-        <TableView fx:id="recentActivityTable" styleClass="data-table" prefHeight="300">
+        <!-- AI vs Human Resolution -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-background-radius: 12;">
+            <Text text="AI vs Human Resolution" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <PieChart fx:id="resolutionTypeChart" legendVisible="true" prefHeight="250"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Escalation Details Table -->
+    <VBox spacing="15" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-background-radius: 12;">
+        <Text text="Recent Escalations" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <TableView fx:id="escalationDetailsTable" prefHeight="250">
             <columns>
-                <TableColumn text="Time" prefWidth="150"/>
-                <TableColumn text="User" prefWidth="150"/>
-                <TableColumn text="Action" prefWidth="250"/>
-                <TableColumn text="Status" prefWidth="100"/>
+                <TableColumn fx:id="ticketIdCol" text="Ticket #" prefWidth="80"/>
+                <TableColumn fx:id="userNameCol" text="User" prefWidth="120"/>
+                <TableColumn fx:id="productNameCol" text="Product" prefWidth="180"/>
+                <TableColumn fx:id="escalatedAtCol" text="Time" prefWidth="120"/>
+                <TableColumn fx:id="messagesCol" text="Messages" prefWidth="90"/>
+                <TableColumn fx:id="priorityCol" text="Priority" prefWidth="90"/>
+                <TableColumn fx:id="statusCol" text="Status" prefWidth="110"/>
+                <TableColumn fx:id="actionsCol" text="Actions" prefWidth="120"/>
             </columns>
-            <placeholder>
-                <VBox alignment="CENTER" spacing="10">
-                    <padding>
-                        <Insets top="30" right="20" bottom="30" left="20"/>
-                    </padding>
-                    <Text text="📊" style="-fx-font-size: 36px;"/>
-                    <Text text="No recent activity" 
-                          style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
-                </VBox>
-            </placeholder>
         </TableView>
     </VBox>
     
-    <!-- Quick Actions -->
-    <HBox spacing="12">
-        <Button text="🔄 Refresh Stats" 
-                onAction="#handleRefresh"
-                styleClass="primary-button"/>
-        <Button text="📊 Full Report" 
-                onAction="#handleFullReport"
-                styleClass="secondary-button"/>
-    </HBox>
-    
-</VBox>
-
+        <!-- Action Buttons -->
+        <HBox spacing="15">
+            <Button text="🔄 Refresh Data" onAction="#handleRefresh" styleClass="primary-button" maxWidth="200"/>
+            <Button text="📄 Generate PDF Report" onAction="#handleFullReport" styleClass="secondary-button" maxWidth="220"/>
+        </HBox>
+        
+    </VBox>
+</ScrollPane>

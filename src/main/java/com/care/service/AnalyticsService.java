@@ -274,6 +274,130 @@ public class AnalyticsService {
         return performances;
     }
     
+    /**
+     * Get AI vs Human resolution rate
+     * Returns map with "AI Resolved" and "Human Resolved" percentages
+     */
+    public Map<String, Double> getResolutionTypeDistribution() {
+        List<ChatSession> allSessions = chatSessionDAO.getAllSessions();
+        Map<String, Double> distribution = new HashMap<>();
+        
+        if (allSessions.isEmpty()) {
+            distribution.put("AI Resolved", 0.0);
+            distribution.put("Escalated to Human", 0.0);
+            return distribution;
+        }
+        
+        long escalatedCount = allSessions.stream()
+                .filter(s -> "ESCALATED".equals(s.getStatus()))
+                .count();
+        
+        long aiResolvedCount = allSessions.stream()
+                .filter(s -> "CLOSED".equals(s.getStatus()))
+                .count();
+        
+        double aiResolvedPercent = (aiResolvedCount * 100.0) / allSessions.size();
+        double escalatedPercent = (escalatedCount * 100.0) / allSessions.size();
+        
+        distribution.put("AI Resolved", aiResolvedPercent);
+        distribution.put("Escalated to Human", escalatedPercent);
+        
+        return distribution;
+    }
+    
+    /**
+     * Get user satisfaction score (dummy data for now)
+     * In production, this would come from user feedback/ratings
+     */
+    public double getUserSatisfactionScore() {
+        // Dummy calculation based on escalation rate
+        double escalationRate = getEscalationRate();
+        // Lower escalation rate = higher satisfaction
+        // If 0% escalation = 5.0 score, 100% escalation = 2.0 score
+        double score = 5.0 - (escalationRate / 100.0 * 3.0);
+        return Math.max(2.0, Math.min(5.0, score));
+    }
+    
+    /**
+     * Get escalations by hour of day
+     * Returns map of Hour -> Escalation Count
+     */
+    public Map<String, Integer> getEscalationsByHour() {
+        Map<String, Integer> hourlyEscalations = new LinkedHashMap<>();
+        
+        // Initialize all 24 hours with 0
+        for (int i = 0; i < 24; i++) {
+            String hour = String.format("%02d:00", i);
+            hourlyEscalations.put(hour, 0);
+        }
+        
+        // Count escalations by hour (using dummy distribution for now)
+        // In production, this would analyze actual ticket creation times
+        List<Ticket> allTickets = ticketDAO.getAllTickets();
+        
+        for (Ticket ticket : allTickets) {
+            if (ticket.getCreatedAt() != null) {
+                int hour = ticket.getCreatedAt().getHour();
+                String hourStr = String.format("%02d:00", hour);
+                hourlyEscalations.put(hourStr, hourlyEscalations.getOrDefault(hourStr, 0) + 1);
+            }
+        }
+        
+        return hourlyEscalations;
+    }
+    
+    /**
+     * Get detailed escalation data with conversation history
+     * Returns list of EscalationDetail objects
+     */
+    public List<EscalationDetail> getEscalationDetails() {
+        List<EscalationDetail> details = new ArrayList<>();
+        
+        // Get all escalated sessions
+        List<ChatSession> escalatedSessions = chatSessionDAO.getAllSessions().stream()
+                .filter(s -> "ESCALATED".equals(s.getStatus()))
+                .collect(Collectors.toList());
+        
+        for (ChatSession session : escalatedSessions) {
+            // Get related ticket
+            Ticket ticket = ticketDAO.findBySessionId(session.getSessionId());
+            if (ticket == null) continue;
+            
+            // Get user info
+            User user = userDAO.findById(session.getUserId());
+            String userName = user != null ? user.getName() : "Unknown User";
+            
+            // Get product info
+            Product product = productDAO.findById(session.getProductId());
+            String productName = product != null ? product.getName() : "Unknown Product";
+            
+            // Get conversation messages
+            List<Message> messages = messageDAO.getBySessionId(session.getSessionId());
+            int messageCount = messages.size();
+            
+            // Get escalation time
+            String escalatedAt = session.getCreatedAt() != null ? 
+                    session.getCreatedAt().format(DateTimeFormatter.ofPattern("MMM dd, HH:mm")) : 
+                    "Unknown";
+            
+            details.add(new EscalationDetail(
+                ticket.getTicketId(),
+                userName,
+                productName,
+                escalatedAt,
+                messageCount,
+                ticket.getPriority(),
+                session.getSessionId(),
+                messages
+            ));
+        }
+        
+        // Sort by ticket ID descending (newest first)
+        details.sort((a, b) -> Integer.compare(b.getTicketId(), a.getTicketId()));
+        
+        return details;
+    }
+    
     // Inner classes for data transfer
     
     public static class IssueData {
@@ -322,6 +446,38 @@ public class AnalyticsService {
         public String getFormattedResolutionRate() { return String.format("%.1f%%", resolutionRate); }
         public double getAvgResolutionTime() { return avgResolutionTime; }
         public String getFormattedAvgResolutionTime() { return String.format("%.1f", avgResolutionTime); }
+    }
+    
+    public static class EscalationDetail {
+        private int ticketId;
+        private String userName;
+        private String productName;
+        private String escalatedAt;
+        private int messageCount;
+        private String priority;
+        private int sessionId;
+        private List<Message> conversationHistory;
+        
+        public EscalationDetail(int ticketId, String userName, String productName, String escalatedAt,
+                               int messageCount, String priority, int sessionId, List<Message> conversationHistory) {
+            this.ticketId = ticketId;
+            this.userName = userName;
+            this.productName = productName;
+            this.escalatedAt = escalatedAt;
+            this.messageCount = messageCount;
+            this.priority = priority;
+            this.sessionId = sessionId;
+            this.conversationHistory = conversationHistory;
+        }
+        
+        public int getTicketId() { return ticketId; }
+        public String getUserName() { return userName; }
+        public String getProductName() { return productName; }
+        public String getEscalatedAt() { return escalatedAt; }
+        public int getMessageCount() { return messageCount; }
+        public String getPriority() { return priority; }
+        public int getSessionId() { return sessionId; }
+        public List<Message> getConversationHistory() { return conversationHistory; }
     }
 }
 

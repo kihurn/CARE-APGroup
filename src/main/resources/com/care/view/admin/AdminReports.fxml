@@ -81,6 +81,50 @@
         </VBox>
     </HBox>
     
+    <!-- Charts Row 3: New Detailed Analytics -->
+    <HBox spacing="20">
+        <!-- AI Resolution Rate -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="AI vs Human Resolution Rate" styleClass="section-title"/>
+            <BarChart fx:id="resolutionTypeChart" legendVisible="true" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Resolution Type" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Percentage (%)" />
+                </yAxis>
+            </BarChart>
+        </VBox>
+        
+        <!-- User Satisfaction -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="User Satisfaction Score" styleClass="section-title"/>
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 30;">
+                <Text fx:id="satisfactionScoreText" text="0.0" style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-fill: #667eea;"/>
+                <Text text="out of 5.0" style="-fx-font-size: 16px; -fx-fill: #666;"/>
+                <HBox alignment="CENTER" spacing="5">
+                    <Text text="⭐⭐⭐⭐⭐" style="-fx-font-size: 24px;"/>
+                </HBox>
+                <Text fx:id="satisfactionDetailsText" text="Based on dummy data" style="-fx-font-size: 12px; -fx-fill: #999;"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    
+    <!-- Charts Row 4: Escalation Trends -->
+    <HBox spacing="20">
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+            <Text text="Escalations by Hour of Day" styleClass="section-title"/>
+            <LineChart fx:id="escalationTrendsChart" legendVisible="false" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Hour" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Escalations" />
+                </yAxis>
+            </LineChart>
+        </VBox>
+    </HBox>
+    
     <!-- Top Issues Table -->
     <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
         <Text text="📋 Top Issues & Keywords" styleClass="section-title"/>
@@ -105,6 +149,25 @@
                 <TableColumn fx:id="resolvedTicketsCol" text="Resolved" minWidth="80" maxWidth="100"/>
                 <TableColumn fx:id="resolutionRateCol" text="Resolution Rate" minWidth="120" maxWidth="150"/>
                 <TableColumn fx:id="avgResolutionTimeCol" text="Avg Time (hrs)" minWidth="120" maxWidth="150"/>
+            </columns>
+        </TableView>
+    </VBox>
+    
+    <!-- Escalation Details Table -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Text text="🚨 Escalation Details - User Journey to Live Support" styleClass="section-title"/>
+            <Text text="(View what users experienced with AI before escalating)" style="-fx-font-size: 12px; -fx-fill: #666;"/>
+        </HBox>
+        <TableView fx:id="escalationDetailsTable" styleClass="data-table" prefHeight="250" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
+            <columns>
+                <TableColumn fx:id="escalationTicketIdCol" text="Ticket #" minWidth="60" maxWidth="80"/>
+                <TableColumn fx:id="escalationUserCol" text="User" minWidth="120"/>
+                <TableColumn fx:id="escalationProductCol" text="Product" minWidth="150"/>
+                <TableColumn fx:id="escalationDateCol" text="Escalated At" minWidth="140"/>
+                <TableColumn fx:id="escalationMessagesCol" text="Messages" minWidth="80" maxWidth="100"/>
+                <TableColumn fx:id="escalationPriorityCol" text="Priority" minWidth="80" maxWidth="100"/>
+                <TableColumn fx:id="escalationActionsCol" text="Actions" minWidth="120" maxWidth="150"/>
             </columns>
         </TableView>
     </VBox>
