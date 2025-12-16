@@ -101,6 +101,15 @@
                 <TableColumn fx:id="statusCol" text="Status" prefWidth="110"/>
                 <TableColumn fx:id="actionsCol" text="Actions" prefWidth="120"/>
             </columns>
+            <placeholder>
+                <VBox alignment="CENTER" spacing="10">
+                    <padding>
+                        <Insets top="30" right="20" bottom="30" left="20"/>
+                    </padding>
+                    <Text text="No escalations yet" 
+                          style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
+                </VBox>
+            </placeholder>
         </TableView>
     </VBox>
     

@@ -102,7 +102,7 @@
 
 /* Secondary Button (Register link, Back) */
 .secondary-button {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-text-fill: #667eea;
     -fx-font-weight: 600;
     -fx-font-size: 15px;
@@ -116,13 +116,13 @@
 }
 
 .secondary-button:hover {
-    -fx-background-color: rgba(102, 126, 234, 0.1);
+    -fx-background-color: #f0f4ff;
     -fx-text-fill: #5568d3;
     -fx-border-color: #5568d3;
 }
 
 .secondary-button:pressed {
-    -fx-background-color: rgba(102, 126, 234, 0.2);
+    -fx-background-color: #e3eaff;
 }
 
 /* Error Label */
@@ -228,6 +228,23 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);
 }
 
+/* Remove blue focus border on table */
+.data-table:focused {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0; /* Keep the same border color when focused */
+}
+
+/* Remove cell focus border (the blue cell highlight) */
+.data-table .table-cell:focused {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+/* Remove the focus indicator on the entire table view */
+.data-table:focused .table-cell {
+    -fx-border-color: transparent;
+}
+
 .data-table .column-header {
     -fx-background-color: #f8f9fa;
     -fx-font-weight: 700;
@@ -245,19 +262,19 @@
     -fx-cursor: hand;
 }
 
-/* Table Row Selected - Blue (not purple like buttons) */
+/* Table Row Selected - Darker Blue with good contrast */
 .data-table .table-row-cell:selected {
-    -fx-background-color: #90caf9;
+    -fx-background-color: #e3f2fd;
 }
 
 .data-table .table-row-cell:selected .table-cell {
-    -fx-text-fill: #90caf9;
+    -fx-text-fill: black; /* Dark blue text for better readability */
     -fx-font-weight: 600;
 }
 
-/* Focused Table Row - Darker Blue */
+/* Focused Table Row - Even Darker Blue */
 .data-table:focused .table-row-cell:selected {
-    -fx-background-color: #64b5f6;
+    -fx-background-color: #e3f2fd;
 }
 
 /* Menu Bar */
@@ -300,7 +317,7 @@
 
 .tab-pane .tab:selected {
     -fx-background-color: white;
-    -fx-border-color: #667eea;
+
     -fx-border-width: 0 0 3 0;
 }
 
@@ -311,7 +328,7 @@
 }
 
 .tab-pane .tab:selected .tab-label {
-    -fx-text-fill: #667eea;
+
 }
 
 /* Scroll Bar Modern Styling */
@@ -486,7 +503,7 @@
 }
 
 .message-agent {
-    -fx-background-color: #28a745; 
+    -fx-background-color: #28a745;
     -fx-background-radius: 18px 18px 18px 0;
     -fx-text-fill: #212529;
 }

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.user.UserProfileController"
+            fitToWidth="true"
+            style="-fx-background-color: white; -fx-background: white;">
+
+<VBox spacing="25"
+      style="-fx-background-color: white;">
+    
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+    
+    <!-- Header -->
+    <VBox spacing="8">
+        <Text text="Profile &amp; Settings" 
+              style="-fx-font-size: 28px; -fx-font-weight: 700; -fx-fill: #667eea;"/>
+        <Text text="Manage your account settings and preferences" 
+              style="-fx-font-size: 14px; -fx-fill: #6c757d;"/>
+    </VBox>
+    
+    <Separator/>
+    
+    <!-- Profile Information Card -->
+    <VBox spacing="20" styleClass="card" style="-fx-background-color: #f8f9fa; -fx-padding: 25; -fx-background-radius: 12;">
+        
+        <Text text="Profile Information" 
+              style="-fx-font-size: 20px; -fx-font-weight: 600; -fx-fill: #495057;"/>
+        
+        <Separator/>
+        
+        <!-- Name Field -->
+        <VBox spacing="8">
+            <Label text="Full Name" styleClass="form-label" 
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <TextField fx:id="nameField" 
+                      promptText="Enter your full name"
+                      styleClass="form-field"
+                      prefWidth="400"/>
+        </VBox>
+        
+        <!-- Email Field (Read-only) -->
+        <VBox spacing="8">
+            <Label text="Email Address" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <TextField fx:id="emailField" 
+                      editable="false"
+                      styleClass="form-field"
+                      prefWidth="400"
+                      style="-fx-background-color: #e9ecef; -fx-opacity: 0.8;"/>
+            <Label text="Email cannot be changed. Contact your administrator if needed." 
+                   style="-fx-text-fill: #6c757d; -fx-font-size: 11px; -fx-font-style: italic;"/>
+        </VBox>
+        
+        <!-- License Key (Read-only) -->
+        <VBox spacing="8">
+            <Label text="License Key" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <TextField fx:id="licenseKeyField" 
+                      editable="false"
+                      styleClass="form-field"
+                      prefWidth="400"
+                      style="-fx-background-color: #e9ecef; -fx-opacity: 0.8;"/>
+        </VBox>
+        
+        <!-- Save Profile Button -->
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Button fx:id="saveProfileBtn" 
+                    text="Save Profile Changes" 
+                    onAction="#handleSaveProfile"
+                    styleClass="primary-button"
+                    style="-fx-font-weight: bold;"
+                    prefWidth="180"
+                    prefHeight="40"/>
+            <Label fx:id="profileStatusLabel" 
+                   text="" 
+                   style="-fx-font-weight: 600;"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Change Password Card -->
+    <VBox spacing="20" styleClass="card" style="-fx-background-color: #fff3cd; -fx-padding: 25; -fx-background-radius: 12;">
+        
+        <Text text="Change Password" 
+              style="-fx-font-size: 20px; -fx-font-weight: 600; -fx-fill: #856404;"/>
+        
+        <Separator/>
+        
+        <!-- Current Password -->
+        <VBox spacing="8">
+            <Label text="Current Password" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <PasswordField fx:id="currentPasswordField" 
+                          promptText="Enter your current password"
+                          styleClass="form-field"
+                          prefWidth="400"/>
+        </VBox>
+        
+        <!-- New Password -->
+        <VBox spacing="8">
+            <Label text="New Password" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <PasswordField fx:id="newPasswordField" 
+                          promptText="Enter new password (min 6 characters)"
+                          styleClass="form-field"
+                          prefWidth="400"/>
+        </VBox>
+        
+        <!-- Confirm New Password -->
+        <VBox spacing="8">
+            <Label text="Confirm New Password" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <PasswordField fx:id="confirmPasswordField" 
+                          promptText="Re-enter new password"
+                          styleClass="form-field"
+                          prefWidth="400"/>
+        </VBox>
+        
+        <!-- Change Password Button -->
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Button fx:id="changePasswordBtn" 
+                    text="Change Password" 
+                    onAction="#handleChangePassword"
+                    styleClass="secondary-button"
+                    style="-fx-font-weight: bold;"
+                    prefWidth="160"
+                    prefHeight="40"/>
+            <Label fx:id="passwordStatusLabel" 
+                   text="" 
+                   style="-fx-font-weight: 600;"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Preferences Card -->
+    <VBox spacing="20" styleClass="card" style="-fx-background-color: #d1ecf1; -fx-padding: 25; -fx-background-radius: 12;">
+        
+        <Text text="Preferences" 
+              style="-fx-font-size: 20px; -fx-font-weight: 600; -fx-fill: #0c5460;"/>
+        
+        <Separator/>
+        
+        <!-- Language Selection -->
+        <VBox spacing="8">
+            <Label text="Preferred Language" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <ComboBox fx:id="languageComboBox" 
+                     promptText="Select language"
+                     prefWidth="300"
+                     styleClass="form-field"/>
+            <Label text="Language preference will be saved. (UI localization coming soon)" 
+                   style="-fx-text-fill: #0c5460; -fx-font-size: 11px; -fx-font-style: italic;"/>
+        </VBox>
+        
+        <!-- 2FA Toggle -->
+        <VBox spacing="8">
+            <Label text="Security" styleClass="form-label"
+                   style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <CheckBox fx:id="enable2FACheckBox" 
+                         text="Enable Two-Factor Authentication (2FA)"
+                         style="-fx-font-size: 13px;"/>
+            </HBox>
+            <Label text="2FA adds an extra layer of security to your account. (Full implementation coming soon)" 
+                   style="-fx-text-fill: #0c5460; -fx-font-size: 11px; -fx-font-style: italic;"/>
+        </VBox>
+        
+        <!-- Save Preferences Button -->
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Button fx:id="savePreferencesBtn" 
+                    text="Save Preferences" 
+                    onAction="#handleSavePreferences"
+                    styleClass="success-button"
+                    style="-fx-font-weight: bold;"
+                    prefWidth="160"
+                    prefHeight="40"/>
+            <Label fx:id="preferencesStatusLabel" 
+                   text="" 
+                   style="-fx-font-weight: 600;"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Account Info Card -->
+    <VBox spacing="15" styleClass="card" style="-fx-background-color: #f1f3f5; -fx-padding: 20; -fx-background-radius: 12;">
+        
+        <Text text="Account Information" 
+              style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-fill: #495057;"/>
+        
+        <Separator/>
+        
+        <HBox spacing="10">
+            <Label text="Role:" style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <Label fx:id="roleLabel" text="USER" style="-fx-font-size: 13px;"/>
+        </HBox>
+        
+        <HBox spacing="10">
+            <Label text="Account Created:" style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <Label fx:id="createdAtLabel" text="N/A" style="-fx-font-size: 13px;"/>
+        </HBox>
+        
+        <HBox spacing="10">
+            <Label text="Last Updated:" style="-fx-font-weight: 600; -fx-font-size: 13px;"/>
+            <Label fx:id="updatedAtLabel" text="N/A" style="-fx-font-size: 13px;"/>
+        </HBox>
+    </VBox>
+    
+</VBox>
+
+</ScrollPane>
+

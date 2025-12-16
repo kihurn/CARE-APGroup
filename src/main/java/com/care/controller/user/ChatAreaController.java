@@ -21,8 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox; // Added HBox
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -36,6 +42,7 @@ public class ChatAreaController {
     @FXML private VBox messagesContainer;
     @FXML private TextField messageInputField;
     @FXML private Button sendBtn;
+    @FXML private Button attachBtn;
     @FXML private Button escalateBtn;
     @FXML private Button endChatBtn;
     
@@ -48,6 +55,7 @@ public class ChatAreaController {
     private ChatSession currentSession;
     private Product currentProduct;
     private List<Message> conversationHistory;
+    private File attachedImageFile;
     
     public ChatAreaController() {
         this.viewFactory = ViewFactory.getInstance();
@@ -179,11 +187,37 @@ public class ChatAreaController {
         }
     }
     
+    /**
+     * Handle attach image button click
+     */
+    @FXML
+    private void handleAttachImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(attachBtn.getScene().getWindow());
+        
+        if (selectedFile != null) {
+            attachedImageFile = selectedFile;
+            System.out.println("✓ Image attached: " + selectedFile.getName());
+            
+            // Update attach button to show file is attached
+            attachBtn.setText("📎✓");
+            attachBtn.setStyle("-fx-font-size: 18px; -fx-background-color: #d4edda;");
+            
+            // Show feedback in placeholder text
+            messageInputField.setPromptText("Image attached: " + selectedFile.getName() + ". Type your question...");
+        }
+    }
+    
     @FXML
     private void handleSendMessage() {
         String userMessage = messageInputField.getText().trim();
         
-        if (userMessage.isEmpty()) {
+        if (userMessage.isEmpty() && attachedImageFile == null) {
             return;
         }
         
@@ -192,12 +226,43 @@ public class ChatAreaController {
             return;
         }
         
-        // Add user message to UI
-        addMessage("USER", userMessage);
-        messageInputField.clear();
+        // Handle image attachment if present
+        String imageBase64 = null;
+        if (attachedImageFile != null) {
+            try {
+                imageBase64 = encodeImageToBase64(attachedImageFile);
+                System.out.println("✓ Image encoded to base64");
+            } catch (Exception e) {
+                System.err.println("Error encoding image: " + e.getMessage());
+                addMessage("SYSTEM", "⚠ Failed to process image. Please try again.");
+                return;
+            }
+        }
         
-        // Save user message to database
-        saveMessage(currentSession.getSessionId(), "USER", userMessage);
+        // Add user message to UI (with image if attached)
+        if (attachedImageFile != null) {
+            addMessageWithImage("USER", userMessage.isEmpty() ? "Attached image:" : userMessage, attachedImageFile);
+        } else {
+            addMessage("USER", userMessage);
+        }
+        
+        // Store the image reference for this message
+        final File imageFileToSave = attachedImageFile;
+        final String imageBase64Final = imageBase64;
+        
+        // Clear input and reset attach button
+        messageInputField.clear();
+        messageInputField.setPromptText("Type your message here...");
+        attachedImageFile = null;
+        attachBtn.setText("📎");
+        attachBtn.setStyle("-fx-font-size: 20px;");
+        
+        // Save user message to database (with image reference if present)
+        String messageContent = userMessage;
+        if (imageFileToSave != null) {
+            messageContent += " [IMAGE: " + imageFileToSave.getName() + "]";
+        }
+        saveMessage(currentSession.getSessionId(), "USER", messageContent);
         
         // Add to conversation history
         Message userMsg = new Message();
@@ -207,18 +272,31 @@ public class ChatAreaController {
         
         // Disable send button while processing
         sendBtn.setDisable(true);
+        attachBtn.setDisable(true);
         
         // Show typing indicator
-        addMessage("BOT", "⏳ Typing...");
+        addMessage("BOT", "⏳ Analyzing...");
         
         // Get AI response in background thread
         new Thread(() -> {
             try {
-                String aiResponse = aiService.generateResponse(
-                    userMessage, 
-                    currentProduct.getProductId(), 
-                    conversationHistory
-                );
+                String aiResponse;
+                if (imageBase64Final != null) {
+                    // Use vision API for image analysis
+                    aiResponse = aiService.generateVisionResponse(
+                        userMessage.isEmpty() ? "What can you see in this image? Please describe any issues or problems." : userMessage,
+                        imageBase64Final,
+                        currentProduct.getProductId(),
+                        conversationHistory
+                    );
+                } else {
+                    // Use regular text API
+                    aiResponse = aiService.generateResponse(
+                        userMessage,
+                        currentProduct.getProductId(),
+                        conversationHistory
+                    );
+                }
                 
                 // Update UI on JavaFX thread
                 Platform.runLater(() -> {
@@ -239,8 +317,9 @@ public class ChatAreaController {
                     botMsg.setContent(aiResponse);
                     conversationHistory.add(botMsg);
                     
-                    // Re-enable send button
+                    // Re-enable buttons
                     sendBtn.setDisable(false);
+                    attachBtn.setDisable(false);
                     messageInputField.requestFocus();
                 });
                 
@@ -256,9 +335,70 @@ public class ChatAreaController {
                     
                     addMessage("SYSTEM", "⚠ Error getting response. Please try again.");
                     sendBtn.setDisable(false);
+                    attachBtn.setDisable(false);
                 });
             }
         }).start();
+    }
+    
+    /**
+     * Encode image file to base64 string
+     */
+    private String encodeImageToBase64(File imageFile) throws Exception {
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            byte[] imageBytes = fis.readAllBytes();
+            return Base64.getEncoder().encodeToString(imageBytes);
+        }
+    }
+    
+    /**
+     * Add message with attached image to UI
+     */
+    private void addMessageWithImage(String senderType, String content, File imageFile) {
+        VBox messageBox = new VBox(8);
+        messageBox.setMaxWidth(450);
+        
+        // Add text if present
+        if (!content.isEmpty()) {
+            Label textLabel = new Label(content);
+            textLabel.setWrapText(true);
+            textLabel.getStyleClass().add("message-bubble");
+            
+            if (senderType.equals("USER")) {
+                textLabel.getStyleClass().add("message-user");
+            } else {
+                textLabel.getStyleClass().add("message-bot");
+            }
+            
+            messageBox.getChildren().add(textLabel);
+        }
+        
+        // Add image
+        try {
+            Image image = new Image(new FileInputStream(imageFile));
+            ImageView imageView = new ImageView(image);
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(300);
+            imageView.setStyle("-fx-border-color: #e0e0e0; -fx-border-width: 1px; -fx-border-radius: 8px;");
+            messageBox.getChildren().add(imageView);
+        } catch (Exception e) {
+            System.err.println("Error displaying image: " + e.getMessage());
+        }
+        
+        // Create row container
+        HBox rowContainer = new HBox();
+        rowContainer.setFillHeight(true);
+        
+        if (senderType.equals("USER")) {
+            rowContainer.setAlignment(Pos.CENTER_RIGHT);
+            rowContainer.setPadding(new Insets(5, 5, 5, 50));
+        } else {
+            rowContainer.setAlignment(Pos.CENTER_LEFT);
+            rowContainer.setPadding(new Insets(5, 50, 5, 5));
+        }
+        
+        rowContainer.getChildren().add(messageBox);
+        messagesContainer.getChildren().add(rowContainer);
     }
     
     /**

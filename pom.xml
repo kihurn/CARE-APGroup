@@ -72,6 +72,13 @@
             <version>1.5.4</version>
         </dependency>
 
+        <!-- JSON library for API requests -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
         <!-- JUnit 5 for Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
