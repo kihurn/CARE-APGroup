@@ -9,12 +9,12 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.care.controller.shared.LoginController"
            styleClass="root"
-           prefHeight="700" prefWidth="1000">
+           prefHeight="900" prefWidth="1400">
     
     <!-- Centered Login Card -->
-    <VBox alignment="CENTER" spacing="25" styleClass="login-container">
+    <VBox alignment="CENTER" spacing="20" styleClass="login-container">
         <padding>
-            <Insets top="50" right="60" bottom="50" left="60"/>
+            <Insets top="40" right="60" bottom="40" left="60"/>
         </padding>
         
         <!-- Logo/Title Section -->

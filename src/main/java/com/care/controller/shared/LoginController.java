@@ -56,10 +56,18 @@ public class LoginController {
             // Set session
             sessionManager.setCurrentUser(user);
             
-            // Navigate to appropriate dashboard
-            viewFactory.navigateToDashboard(user.getRole());
-            
             System.out.println("Login successful: " + user.getName() + " (" + user.getRole() + ")");
+            System.out.println("Navigating to dashboard for role: " + user.getRole());
+            
+            // Navigate to appropriate dashboard
+            try {
+                viewFactory.navigateToDashboard(user.getRole());
+                System.out.println("✓ Dashboard navigation completed");
+            } catch (Exception e) {
+                System.err.println("✗ Error navigating to dashboard: " + e.getMessage());
+                e.printStackTrace();
+                showError("Error loading dashboard. Check console for details.");
+            }
         } else {
             showError("Invalid email or password");
         }

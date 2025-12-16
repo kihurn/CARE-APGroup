@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS tickets (
 -- A. Users (Password is 'password' for all - in real app, hash this!)
 INSERT OR IGNORE INTO users (email, password_hash, name, role, is_2fa_enabled) VALUES 
 ('admin@care.com', 'password', 'System Admin', 'ADMIN', 1),
-('agent@gmail.com', 'password', 'Support Agent Steve', 'AGENT', 0),
+-- Removed agent@gmail.com - use agent@care.com instead
 ('user@gmail.com', 'password', 'John Doe', 'USER', 0),
 ('jane@gmail.com', 'password', 'Jane Smith', 'USER', 1);
 

@@ -167,6 +167,8 @@ public class UserHistoryController {
 
     private void handleContinueChat(ChatSession session) {
         System.out.println("Continue chat for session: " + session.getSessionId());
+        System.out.println("Session productId: " + session.getProductId());
+        System.out.println("Session status: " + session.getStatus());
 
         if ("CLOSED".equals(session.getStatus())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -178,7 +180,22 @@ public class UserHistoryController {
         }
 
         try {
+            // Load and set the product from the session before navigating
+            if (session.getProductId() != null && session.getProductId() > 0) {
+                Product product = productDAO.getById(session.getProductId());
+                if (product != null) {
+                    sessionManager.setSelectedProduct(product);
+                    System.out.println("✓ Set product in SessionManager: " + product.getName() + " (ID: " + product.getProductId() + ")");
+                } else {
+                    System.err.println("❌ Product not found for productId: " + session.getProductId());
+                }
+            } else {
+                System.err.println("❌ Invalid productId in session: " + session.getProductId());
+            }
+            
             sessionManager.setCurrentChatSession(session);
+            System.out.println("✓ Set session in SessionManager: " + session.getSessionId());
+            
             ViewFactory.getInstance().setUserSelectedMenuItem("ChatArea");
             System.out.println("✓ Navigating to ChatArea with session " + session.getSessionId());
         } catch (Exception e) {

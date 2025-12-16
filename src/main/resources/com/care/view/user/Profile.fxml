@@ -77,7 +77,7 @@
                     onAction="#handleSaveProfile"
                     styleClass="primary-button"
                     style="-fx-font-weight: bold;"
-                    prefWidth="180"
+                    minWidth="200"
                     prefHeight="40"/>
             <Label fx:id="profileStatusLabel" 
                    text="" 
@@ -86,7 +86,7 @@
     </VBox>
     
     <!-- Change Password Card -->
-    <VBox spacing="20" styleClass="card" style="-fx-background-color: #fff3cd; -fx-padding: 25; -fx-background-radius: 12;">
+    <VBox spacing="20" styleClass="card" style="-fx-background-color: #fff3cd; -fx-padding: 23; -fx-background-radius: 12;">
         
         <Text text="Change Password" 
               style="-fx-font-size: 20px; -fx-font-weight: 600; -fx-fill: #856404;"/>
@@ -130,7 +130,7 @@
                     onAction="#handleChangePassword"
                     styleClass="secondary-button"
                     style="-fx-font-weight: bold;"
-                    prefWidth="160"
+                    minWidth="180"
                     prefHeight="40"/>
             <Label fx:id="passwordStatusLabel" 
                    text="" 
@@ -178,7 +178,7 @@
                     onAction="#handleSavePreferences"
                     styleClass="success-button"
                     style="-fx-font-weight: bold;"
-                    prefWidth="160"
+                    minWidth="180"
                     prefHeight="40"/>
             <Label fx:id="preferencesStatusLabel" 
                    text="" 

@@ -1,19 +1,18 @@
 # CARE - Customer Assistance and Resource Engine
 
-A JavaFX-based customer support system with chat functionality, ticket management, and knowledge base.
+A comprehensive JavaFX-based customer support system with AI-powered chat, ticket management, and knowledge base.
 
 ## 🚀 Project Overview
 
-CARE is a comprehensive customer support application built with JavaFX, implementing a clean MVC architecture with Service-Repository pattern. It supports multiple user roles (User, Agent, Admin) with role-based dashboards.
+CARE is a production-ready customer support application that provides AI-powered assistance, ticket management, and comprehensive analytics. It supports multiple user roles (User, Agent, Admin) with role-based dashboards and features.
 
-## 📋 Features
-
-- **User Authentication**: Login and registration system
-- **Role-Based Access**: Different dashboards for Users, Agents, and Admins
-- **Chat Sessions**: Real-time chat support (skeleton implemented)
-- **Ticket Management**: Escalation and assignment system
-- **Knowledge Base**: Product documentation and support articles
-- **SQLite Database**: Local database with complete schema
+### Key Highlights
+- **AI-Powered Support**: OpenAI GPT integration with product context
+- **Multi-Language Support**: Automatic language detection and response
+- **Image Analysis**: Vision API for analyzing product issues from images
+- **Role-Based Access**: Separate portals for Users, Agents, and Admins
+- **Real-Time Analytics**: Comprehensive dashboards and reports
+- **PDF Knowledge Base**: Automatic text extraction from product manuals
 
 ## 🛠️ Technology Stack
 
@@ -22,7 +21,74 @@ CARE is a comprehensive customer support application built with JavaFX, implemen
 - **Build Tool**: Maven
 - **Database**: SQLite (JDBC)
 - **Architecture**: MVC with Service-Repository pattern
-- **Testing**: JUnit 5
+- **AI Integration**: OpenAI API (GPT-3.5-turbo, GPT-4o for vision)
+- **Libraries**: Apache PDFBox, BCrypt, org.json, JUnit 5
+
+## 👥 User Roles
+
+### **USER** (Customer)
+- Chat with AI assistant
+- View chat history
+- Manage profile and settings
+- Select products for support
+
+### **AGENT** (Support Agent)
+- View assigned tickets
+- Reply to customers
+- Mark tickets as resolved
+- Filter and manage tickets
+
+### **ADMIN** (Administrator)
+- Full system access
+- User management (CRUD)
+- Product management with PDF upload
+- Knowledge base management
+- Ticket management and assignment
+- Analytics and reports
+
+## 📋 Features
+
+### Authentication & Security
+- User login and registration
+- Password hashing (BCrypt)
+- Session management
+- Role-based routing
+- Secure password change
+
+### User Portal
+- Product selection by category
+- AI chat with product context
+- Image attachment for issue analysis
+- Chat history viewing
+- Continue previous chats
+- Profile management
+- Password change
+- Preferences settings
+
+### Admin Portal
+- Dashboard with real-time statistics
+- User management (add, edit, delete, filter)
+- Product management (add, delete, PDF upload)
+- Knowledge base management
+- Ticket management and assignment
+- Analytics dashboard with charts
+- PDF report generation
+
+### Agent Portal
+- Assigned tickets dashboard
+- View conversation history
+- Reply to customers
+- Mark tickets as resolved
+- Filter tickets by status
+- Real-time statistics
+
+### AI & Intelligence
+- OpenAI GPT integration
+- Product context injection
+- PDF manual text extraction
+- Multi-language support (auto-detect)
+- Vision API for image analysis
+- Conversation history maintenance
 
 ## 📁 Project Structure
 
@@ -30,126 +96,111 @@ CARE is a comprehensive customer support application built with JavaFX, implemen
 src/main/
 ├── java/com/care/
 │   ├── App.java                    # Main entry point
-│   ├── model/                      # POJOs matching database schema
-│   │   ├── User.java
-│   │   ├── Product.java
-│   │   ├── ChatSession.java
-│   │   ├── Message.java
-│   │   ├── Ticket.java
-│   │   └── KnowledgeBase.java
-│   ├── dao/                        # Data Access Objects
-│   │   └── UserDAO.java
-│   ├── service/                    # Business logic layer
-│   │   └── UserService.java
+│   ├── model/                      # Data models (7 classes)
+│   ├── dao/                        # Data Access Objects (6 classes)
+│   ├── service/                    # Business logic (6 services)
 │   ├── controller/                 # JavaFX Controllers
 │   │   ├── shared/                 # Login, Register
-│   │   ├── user/                   # User dashboard
-│   │   ├── admin/                  # Admin dashboard
-│   │   └── agent/                  # Agent dashboard
-│   └── util/                       # Utility classes
-│       ├── DatabaseDriver.java     # Singleton DB connection
-│       ├── SessionManager.java     # User session management
-│       └── ViewFactory.java        # Navigation handler
+│   │   ├── user/                   # User portal (5 controllers)
+│   │   ├── admin/                  # Admin portal (11 controllers)
+│   │   └── agent/                  # Agent portal (1 controller)
+│   └── util/                       # Utilities
 ├── resources/com/care/
-│   ├── view/                       # FXML files
-│   │   ├── shared/                 # Login.fxml, Register.fxml
-│   │   ├── user/                   # UserDashboard.fxml
-│   │   ├── admin/                  # AdminDashboard.fxml
-│   │   └── agent/                  # AgentDashboard.fxml
+│   ├── view/                       # FXML files (16 views)
 │   ├── styles/                     # CSS stylesheets
-│   │   └── main.css
 │   └── sql/                        # Database schema
-│       └── schema.sql
-└── module-info.java                # Java module configuration
+└── config.properties               # Configuration
 ```
 
 ## 🏃 Getting Started
 
 ### Prerequisites
-
 - Java 17 or higher
 - Maven 3.6+
-- IDE with JavaFX support (IntelliJ IDEA, Eclipse, VS Code)
+- OpenAI API key (for AI features)
 
 ### Installation
 
-1. **Clone/Navigate to the project directory**
+1. **Navigate to project directory**
    ```bash
    cd CAREv2
    ```
 
-2. **Build the project**
+2. **Configure OpenAI API**
+   - Open `src/main/resources/config.properties`
+   - Add your OpenAI API key:
+     ```properties
+     openai.api.key=your-api-key-here
+     openai.model=gpt-3.5-turbo
+     ```
+
+3. **Build the project**
    ```bash
    mvn clean install
    ```
 
-3. **Run the application**
+4. **Run the application**
    ```bash
    mvn javafx:run
    ```
 
-### Default Admin Credentials
+### Default Credentials
 
-- **Email**: `admin@care.com`
-- **Password**: `admin123`
+**Admin:** (has a portal)
+- Email: `admin@care.com`
+- Password: `admin123`
+
+**Agent:** (does not have a portal)
+- Email: `agent@gmail.com`
+- Password: `password`
+
+**User:** (has portal)
+- Email: `user@gmail.com`
+- Password: `password`
+
+## ⚙️ Configuration
+
+### config.properties (find the file in src\main\resources\config.properties)
+
+```properties
+# OpenAI API Settings
+openai.api.key=your-api-key-here
+openai.model=gpt-3.5-turbo
+openai.max.tokens=500
+openai.temperature=0.7
+```
+
+**Model Options:**
+- `gpt-3.5-turbo` - Fast, cost-effective (recommended)
+- `gpt-4` - More capable, slower, more expensive
+- `gpt-4o` - Best for vision/image analysis
 
 ## 📊 Database Schema
 
 The application uses SQLite with the following tables:
-
-1. **Users**: User accounts with roles (USER, ADMIN, AGENT)
-2. **Products**: Product catalog
-3. **ChatSessions**: Chat conversations between users and bots/agents
-4. **Messages**: Individual messages within chat sessions
-5. **Tickets**: Escalated support tickets
-6. **KnowledgeBase**: Documentation and support articles
+- **users**: User accounts with roles
+- **products**: Product catalog
+- **chat_sessions**: Chat conversations
+- **messages**: Individual messages
+- **tickets**: Escalated support tickets
+- **knowledge_base**: Documentation and support articles
 
 Database file: `care.db` (auto-created on first run)
 
 ## 🎨 Architecture Highlights
 
 ### Design Patterns
-
 - **Singleton**: DatabaseDriver, SessionManager, ViewFactory
 - **DAO Pattern**: Separates data access logic
 - **Service Layer**: Business logic and validation
 - **MVC**: Clean separation of concerns
 
 ### Key Components
-
 1. **DatabaseDriver**: Manages SQLite connection, initializes schema
 2. **ViewFactory**: Centralized navigation and FXML loading
 3. **SessionManager**: Tracks logged-in user state
-4. **Controllers**: Handle UI events and user interactions
-
-## 🔧 Next Steps / TODO
-
-The foundation is complete. Here are suggested next steps:
-
-1. **Implement Chat Functionality**
-   - Create ChatController and ChatView
-   - Implement message sending/receiving
-   - Add bot response logic
-
-2. **Build Knowledge Base**
-   - Create KnowledgeBaseDAO and Service
-   - Implement search functionality
-   - Add file upload for PDFs
-
-3. **Ticket System**
-   - Create TicketDAO and Service
-   - Implement ticket assignment
-   - Add status tracking
-
-4. **Security Enhancements**
-   - Implement password hashing (BCrypt)
-   - Add 2FA support
-   - Session timeout mechanism
-
-5. **UI/UX Improvements**
-   - Add loading indicators
-   - Implement notifications
-   - Enhance error handling
+4. **AIService**: Handles OpenAI API integration
+5. **Controllers**: Handle UI events and user interactions
 
 ## 📝 Development Guidelines
 
@@ -176,23 +227,11 @@ mvn test
 ### Issue: Database connection fails
 **Solution**: Check file permissions in the project directory
 
+### Issue: OpenAI API not working
+**Solution**: Check API key in `config.properties`, maybe the key is expired or blocked by OpennAI, and verify internet connection
+
 ### Issue: FXML not loading
 **Solution**: Verify paths in ViewFactory match actual file locations
 
-## 📄 License
 
-This project is for educational/internal use.
-
-## 👥 Contributors
-
-- Initial setup and architecture: AI Assistant
-- Your team/name here
-
-## 📞 Support
-
-For issues or questions, create a ticket in the system (once implemented) or contact your administrator.
-
----
-
-**Built with ❤️ using JavaFX and clean architecture principles**
-
+**Version 2.0 - December 2024**

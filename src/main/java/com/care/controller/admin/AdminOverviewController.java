@@ -92,10 +92,11 @@ public class AdminOverviewController {
         
         // Add "View Chat" button
         actionsCol.setCellFactory(param -> new TableCell<>() {
-            private final Button viewButton = new Button("💬 View Chat");
+            private final Button viewButton = new Button("View Chat");
             
             {
                 viewButton.getStyleClass().add("primary-button");
+                viewButton.setStyle("-fx-font-size: 11px; -fx-padding: 5 10; -fx-min-width: 80px; -fx-max-width: 100px;");
                 viewButton.setOnAction(event -> {
                     EscalationRow row = getTableView().getItems().get(getIndex());
                     showConversationDialog(row);

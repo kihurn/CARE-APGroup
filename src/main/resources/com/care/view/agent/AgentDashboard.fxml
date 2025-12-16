@@ -3,80 +3,23 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.care.controller.agent.AgentDashboardController"
-            styleClass="root">
+            prefHeight="850" prefWidth="1300">
     
-    <!-- Top: Menu Bar -->
-    <top>
-        <VBox>
-            <MenuBar>
-                <Menu text="File">
-                    <MenuItem text="Logout" onAction="#handleLogout"/>
-                    <MenuItem text="Exit" onAction="#handleExit"/>
-                </Menu>
-                <Menu text="Tools">
-                    <MenuItem text="Knowledge Base"/>
-                </Menu>
-            </MenuBar>
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="header">
-                <padding>
-                    <Insets top="10" right="20" bottom="10" left="20"/>
-                </padding>
-                <Text text="Agent Dashboard" styleClass="header-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="agentNameLabel" text="Agent" styleClass="user-label"/>
-            </HBox>
-        </VBox>
-    </top>
+    <!-- Left: Sidebar Menu -->
+    <left>
+        <fx:include source="AgentMenu.fxml"/>
+    </left>
     
-    <!-- Center: Main Content -->
+    <!-- Center: Dynamic Content Area -->
     <center>
-        <VBox spacing="20" styleClass="content-container">
-            <padding>
-                <Insets top="20" right="30" bottom="20" left="30"/>
-            </padding>
-            
-            <Text text="My Assigned Tickets" styleClass="section-title"/>
-            
-            <HBox spacing="10">
-                <Button text="Refresh" onAction="#handleRefresh" styleClass="primary-button"/>
-                <ComboBox fx:id="statusFilter" promptText="Filter by Status"/>
-            </HBox>
-            
-            <!-- Statistics -->
-            <HBox spacing="30" styleClass="stats-container" style="-fx-padding: 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;">
-                <VBox alignment="CENTER" spacing="5">
-                    <Text fx:id="totalTicketsText" text="0" styleClass="stat-value"/>
-                    <Text text="Total Tickets" styleClass="stat-label"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Text fx:id="openTicketsText" text="0" styleClass="stat-value"/>
-                    <Text text="Open" styleClass="stat-label"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Text fx:id="inProgressTicketsText" text="0" styleClass="stat-value"/>
-                    <Text text="In Progress" styleClass="stat-label"/>
-                </VBox>
-            </HBox>
-            
-            <TableView fx:id="ticketsTable" styleClass="data-table" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
-                <columns>
-                    <TableColumn fx:id="ticketIdCol" text="Ticket ID" minWidth="80" maxWidth="100"/>
-                    <TableColumn fx:id="sessionIdCol" text="Session" minWidth="80" maxWidth="100"/>
-                    <TableColumn fx:id="userNameCol" text="Customer" minWidth="120"/>
-                    <TableColumn fx:id="productNameCol" text="Product" minWidth="150"/>
-                    <TableColumn fx:id="statusCol" text="Status" minWidth="100" maxWidth="120"/>
-                    <TableColumn fx:id="priorityCol" text="Priority" minWidth="80" maxWidth="100"/>
-                    <TableColumn fx:id="createdAtCol" text="Created" minWidth="120"/>
-                    <TableColumn fx:id="actionsCol" text="Actions" minWidth="250"/>
-                </columns>
-            </TableView>
-            
-        </VBox>
+        <StackPane fx:id="centerContentPane" 
+                   style="-fx-background-color: white;">
+            <!-- Content will be loaded dynamically here -->
+        </StackPane>
     </center>
     
 </BorderPane>

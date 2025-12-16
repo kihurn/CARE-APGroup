@@ -220,7 +220,15 @@ public class ChatSessionDAO {
         ChatSession session = new ChatSession();
         session.setSessionId(rs.getInt("session_id"));
         session.setUserId(rs.getInt("user_id"));
-        session.setProductId(rs.getInt("product_id"));
+        
+        // Handle nullable product_id properly
+        int productId = rs.getInt("product_id");
+        if (rs.wasNull()) {
+            session.setProductId(null);
+        } else {
+            session.setProductId(productId);
+        }
+        
         session.setStatus(rs.getString("status"));
         
         int agentId = rs.getInt("assigned_agent_id");

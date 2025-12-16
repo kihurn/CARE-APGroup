@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.care.controller.agent.AgentOverviewController"
+            fitToWidth="true"
+            style="-fx-background-color: white;">
+    
+    <VBox spacing="25" style="-fx-background-color: white;">
+        
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+    
+        <!-- Header -->
+        <VBox spacing="5">
+            <Text text="Agent Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Text text="View and manage your assigned tickets" style="-fx-font-size: 14px; -fx-fill: #666;"/>
+        </VBox>
+        
+        <!-- Statistics -->
+        <HBox spacing="20">
+            <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+                <Text fx:id="totalTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+                <Text text="Total Tickets" style="-fx-font-size: 14px; -fx-fill: #666;"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+                <Text fx:id="openTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+                <Text text="Open" style="-fx-font-size: 14px; -fx-fill: #666;"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+                <Text fx:id="inProgressTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+                <Text text="In Progress" style="-fx-font-size: 14px; -fx-fill: #666;"/>
+            </VBox>
+        </HBox>
+        
+        <!-- Tickets Table -->
+        <VBox spacing="15" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-background-radius: 12;">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Text text="My Assigned Tickets" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Refresh" onAction="#handleRefresh" styleClass="primary-button" style="-fx-font-weight: bold;"/>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Filter:" style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="statusFilter" promptText="All Statuses" prefWidth="150"/>
+            </HBox>
+            
+            <TableView fx:id="ticketsTable" styleClass="data-table" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="ticketIdCol" text="Ticket ID" minWidth="80" maxWidth="100"/>
+                    <TableColumn fx:id="sessionIdCol" text="Session" minWidth="80" maxWidth="100"/>
+                    <TableColumn fx:id="userNameCol" text="Customer" minWidth="120"/>
+                    <TableColumn fx:id="productNameCol" text="Product" minWidth="150"/>
+                    <TableColumn fx:id="statusCol" text="Status" minWidth="100" maxWidth="120"/>
+                    <TableColumn fx:id="priorityCol" text="Priority" minWidth="80" maxWidth="100"/>
+                    <TableColumn fx:id="createdAtCol" text="Created" minWidth="120"/>
+                    <TableColumn fx:id="actionsCol" text="Actions" minWidth="250"/>
+                </columns>
+                <placeholder>
+                    <VBox alignment="CENTER" spacing="10">
+                        <padding>
+                            <Insets top="50" right="20" bottom="50" left="20"/>
+                        </padding>
+                        <Text text="No tickets assigned to you."
+                              style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-fill: #6c757d;"/>
+                    </VBox>
+                </placeholder>
+            </TableView>
+        </VBox>
+        
+    </VBox>
+</ScrollPane>
+

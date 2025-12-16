@@ -27,41 +27,41 @@
     
     <!-- Key Metrics Row 1 -->
     <HBox spacing="20">
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #667eea; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="totalUsersText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Total Users" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalUsersText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Total Users" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #f093fb; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="totalChatsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Total Chats" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalChatsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Total Chats" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #4facfe; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="activeSessionsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Active Sessions" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="activeSessionsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Active Sessions" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #43e97b; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="totalProductsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Products" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="totalProductsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Products" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
     </HBox>
     
     <!-- Key Metrics Row 2 -->
     <HBox spacing="20">
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #fa709a; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="escalationRateText" text="0%" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Escalation Rate" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="escalationRateText" text="0%" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Escalation Rate" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #30cfd0; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="openTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Open Tickets" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="openTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Open Tickets" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #a8edea; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="resolvedTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Resolved Tickets" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="resolvedTicketsText" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Resolved Tickets" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
-        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #ffd89b; -fx-padding: 25; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
-            <Text fx:id="satisfactionText" text="0.0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: white;"/>
-            <Text text="Satisfaction ⭐/5" style="-fx-font-size: 14px; -fx-fill: white;"/>
+        <VBox alignment="CENTER" spacing="5" styleClass="analytics-card" HBox.hgrow="ALWAYS">
+            <Text fx:id="satisfactionText" text="0.0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #333;"/>
+            <Text text="Satisfaction ⭐/5" style="-fx-font-size: 14px; -fx-fill: #666;"/>
         </VBox>
     </HBox>
     

@@ -104,37 +104,71 @@ public class ChatAreaController {
                 System.out.println("✓ Continuing existing session: " + existingSession.getSessionId());
                 currentSession = existingSession;
                 
-                // Get product for this session
-                currentProduct = new com.care.dao.ProductDAO().getById(currentSession.getProductId());
-                
-                if (currentProduct == null) {
-                    System.err.println("❌ Product not found for session: " + currentSession.getProductId());
-                    addMessage("SYSTEM", "⚠ Product not found. This session may be corrupted.");
+                // Check if productId exists in session
+                Integer productId = currentSession.getProductId();
+                if (productId == null || productId <= 0) {
+                    System.err.println("❌ Invalid productId in session: " + productId);
+                    addMessage("SYSTEM", "⚠ Product information not found for this session. Please start a new chat.");
                     sendBtn.setDisable(true);
                     return;
                 }
+                
+                // Get product for this session
+                currentProduct = new com.care.dao.ProductDAO().getById(productId);
+                
+                if (currentProduct == null) {
+                    System.err.println("❌ Product not found in database for productId: " + productId);
+                    addMessage("SYSTEM", "⚠ Product not found. This session may be corrupted. Please start a new chat.");
+                    sendBtn.setDisable(true);
+                    return;
+                }
+                
+                // Set product in SessionManager for consistency
+                sessionManager.setSelectedProduct(currentProduct);
+                System.out.println("✓ Loaded product: " + currentProduct.getName() + " (ID: " + productId + ")");
                 
                 // Update chat title
                 chatTitleText.setText("Chat Support - " + currentProduct.getName());
                 chatSubtitleText.setText("Continuing Previous Conversation");
                 
+                // Clear container and history first
+                messagesContainer.getChildren().clear();
+                conversationHistory.clear();
+                
                 // Load previous messages
                 List<Message> previousMessages = messageDAO.getBySessionId(currentSession.getSessionId());
-                System.out.println("✓ Loaded " + previousMessages.size() + " previous messages");
+                System.out.println("✓ Loaded " + previousMessages.size() + " previous messages for session " + currentSession.getSessionId());
                 
+                // Add messages to UI and conversation history
                 for (Message msg : previousMessages) {
+                    System.out.println("  - Adding message: " + msg.getSenderType() + " - " + 
+                                     (msg.getContent().length() > 50 ? msg.getContent().substring(0, 50) + "..." : msg.getContent()));
+                    
+                    // Add to UI
                     addMessage(msg.getSenderType(), msg.getContent());
+                    
+                    // Add to conversation history for AI context (exclude SYSTEM messages)
+                    if (!"SYSTEM".equals(msg.getSenderType())) {
+                        conversationHistory.add(msg);
+                    }
                 }
                 
                 // Add continuation message if there were previous messages
                 if (previousMessages.size() > 0) {
-                    addMessage("SYSTEM", "💬 Continuing your previous conversation. You can keep chatting!");
+                    addMessage("SYSTEM", "Continuing your previous conversation. You can keep chatting!");
+                    System.out.println("✓ Displayed " + previousMessages.size() + " previous messages in chat");
                 } else {
                     // Empty session - just show welcome
-                    String welcomeMsg = "👋 Hello! I'm your AI support assistant. I'm here to help you with " + 
+                    String welcomeMsg = "Hello! I'm your AI support assistant. I'm here to help you with " + 
                                       currentProduct.getName() + ". How can I assist you today?";
                     addMessage("BOT", welcomeMsg);
                     saveMessage(currentSession.getSessionId(), "BOT", welcomeMsg);
+                    
+                    // Add to conversation history
+                    Message welcomeMsgObj = new Message();
+                    welcomeMsgObj.setSenderType("BOT");
+                    welcomeMsgObj.setContent(welcomeMsg);
+                    conversationHistory.add(welcomeMsgObj);
                 }
                 
                 // Clear the session from SessionManager so it doesn't reload next time
