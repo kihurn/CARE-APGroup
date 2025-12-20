@@ -39,12 +39,17 @@ public class UserMenuController {
     @FXML
     private void handleNewChat() {
         System.out.println("New Chat clicked");
+        // Clear any existing chat session when starting a new chat
+        sessionManager.clearCurrentChatSession();
         viewFactory.setUserSelectedMenuItem("SelectProduct");
     }
     
     @FXML
     private void handleHistory() {
         System.out.println("History clicked");
+        // Clear current chat session when viewing history
+        // This ensures a clean state when continuing a different chat
+        sessionManager.clearCurrentChatSession();
         viewFactory.setUserSelectedMenuItem("UserHistory");
     }
     
@@ -59,6 +64,8 @@ public class UserMenuController {
     @FXML
     private void handleProfile() {
         System.out.println("Profile clicked");
+        // Clear chat session when navigating away from chat
+        sessionManager.clearCurrentChatSession();
         viewFactory.setUserSelectedMenuItem("Profile");
     }
     

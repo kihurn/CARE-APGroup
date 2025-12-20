@@ -171,8 +171,8 @@ public class ChatAreaController {
                     conversationHistory.add(welcomeMsgObj);
                 }
                 
-                // Clear the session from SessionManager so it doesn't reload next time
-                sessionManager.clearCurrentChatSession();
+                // DON'T clear the session yet - we need it to remain active during the chat
+                // It will be cleared when user navigates away or ends the chat
                 
             } else {
                 // Start new session

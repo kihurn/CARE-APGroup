@@ -202,18 +202,18 @@ public class AdminTicketsController {
             ticketsTable.getItems().add(display);
         }
         
-        // Update stats
-        updateStats();
+        // Update stats based on filtered tickets
+        updateStats(filteredTickets);
     }
     
     /**
-     * Update statistics labels
+     * Update statistics labels based on the provided ticket list
      */
-    private void updateStats() {
-        int total = allTickets.size();
-        int open = (int) allTickets.stream().filter(t -> "OPEN".equals(t.getStatus())).count();
-        int inProgress = (int) allTickets.stream().filter(t -> "IN_PROGRESS".equals(t.getStatus())).count();
-        int resolved = (int) allTickets.stream().filter(t -> "RESOLVED".equals(t.getStatus())).count();
+    private void updateStats(List<Ticket> tickets) {
+        int total = tickets.size();
+        int open = (int) tickets.stream().filter(t -> "OPEN".equals(t.getStatus())).count();
+        int inProgress = (int) tickets.stream().filter(t -> "IN_PROGRESS".equals(t.getStatus())).count();
+        int resolved = (int) tickets.stream().filter(t -> "RESOLVED".equals(t.getStatus())).count();
         
         totalTicketsLabel.setText("Total Tickets: " + total);
         openTicketsLabel.setText("Open: " + open);

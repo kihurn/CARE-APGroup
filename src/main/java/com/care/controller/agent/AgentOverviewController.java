@@ -200,15 +200,20 @@ public class AgentOverviewController {
     
     private void handleFilterChange() {
         String filter = statusFilter.getValue();
+        List<TicketDisplay> filtered;
+        
         if (filter.equals("All")) {
+            filtered = allTickets;
             ticketsTable.getItems().setAll(allTickets);
         } else {
-            List<TicketDisplay> filtered = allTickets.stream()
+            filtered = allTickets.stream()
                     .filter(t -> t.getStatus().equals(filter))
                     .collect(Collectors.toList());
             ticketsTable.getItems().setAll(filtered);
         }
-        updateStatistics();
+        
+        // Update statistics based on filtered tickets
+        updateStatistics(filtered);
         autoResizeColumns();
     }
     
@@ -222,7 +227,7 @@ public class AgentOverviewController {
                     .collect(Collectors.toList());
             
             ticketsTable.getItems().setAll(allTickets);
-            updateStatistics();
+            updateStatistics(allTickets);
             
             System.out.println("✓ Loaded " + tickets.size() + " tickets for agent ID: " + agentId);
         } catch (Exception e) {
@@ -268,10 +273,10 @@ public class AgentOverviewController {
         return display;
     }
     
-    private void updateStatistics() {
-        int total = allTickets.size();
-        long open = allTickets.stream().filter(t -> t.getStatus().equals("OPEN")).count();
-        long inProgress = allTickets.stream().filter(t -> t.getStatus().equals("IN_PROGRESS")).count();
+    private void updateStatistics(List<TicketDisplay> tickets) {
+        int total = tickets.size();
+        long open = tickets.stream().filter(t -> t.getStatus().equals("OPEN")).count();
+        long inProgress = tickets.stream().filter(t -> t.getStatus().equals("IN_PROGRESS")).count();
         
         totalTicketsText.setText(String.valueOf(total));
         openTicketsText.setText(String.valueOf(open));
